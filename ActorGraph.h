@@ -8,7 +8,7 @@
 #include <stack>
 #include <unordered_map>
 #include <queue>
-
+#include "Union.h"
 
 using namespace std;
 
@@ -56,6 +56,15 @@ void f6(ActorNode*& aNode, string& temp, stack<string>& rrr, std::size_t& split)
 void f7(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy);
 
 void f8(queue<ActorNode*>& tss, int& yyy, vector<ActorNode*>& vec1, vector<string>& dest, int& i, vector<int>& year_acted_together);
+
+void f9(unordered_map<string, ActorNode*>::iterator& clear);
+
+void f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Union& u1);
+
+
+void f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Union& u1);
+
+void f12(unordered_map<string, ActorNode*>::iterator& iter1);
   /**
    * Load the graph from a tab-delimited file of actor->movie relationships.
    *

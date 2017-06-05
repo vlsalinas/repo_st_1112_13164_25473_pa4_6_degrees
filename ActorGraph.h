@@ -42,16 +42,20 @@ public:
 	int max;
 
     void f1(string film, vector<ActorNode*>& vector_of_actors, unordered_map<string, vector<ActorNode*>>::iterator& insert_data);
-
   
     void f2(unordered_map<string, ActorNode*>::iterator search, string actor_name);
 
-
 void f3(int& temp, ActorNode*& next, unordered_map<string, int>::iterator& movieSearch, priority_queue<ActorNode*, vector<ActorNode*>, ActorNodeComp>& pq, ActorNode*& curr);
-
 
 void f4(unordered_map<string, ActorNode*>::iterator& reset);
 
+void f5(ActorNode*& aNode, string& temp, stack<string>& rrr, std::size_t& split);
+
+void f6(ActorNode*& aNode, string& temp, stack<string>& rrr, std::size_t& split);
+
+void f7(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy);
+
+void f8(queue<ActorNode*>& tss, int& yyy, vector<ActorNode*>& vec1, vector<string>& dest, int& i, vector<int>& year_acted_together);
   /**
    * Load the graph from a tab-delimited file of actor->movie relationships.
    *

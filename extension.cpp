@@ -72,7 +72,7 @@ int main( int argc, char* argv[] ) {
     string end_friend(record[1]);
 
     //send information to output file
-    mutualCounts = graph->finding( start_friend, end_friend ); 
+    mutualCounts = graph->search(start_friend, end_friend ); 
 
     outfile << "# of connections between " << start_friend << " and "
       << end_friend << " are " << mutualCounts << endl;

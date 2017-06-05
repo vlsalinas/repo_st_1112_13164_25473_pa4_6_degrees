@@ -16,59 +16,58 @@ using namespace std;
  * Return: boolean saying whether load was successful or not 
  * Load to the graph
  */
-	bool extensionGraph::loadFromFile( const char* in_filename ) {
+bool extensionGraph::loadFromFile( const char* in_filename ) {
 
-		// Initialize the file stream
-    ifstream infile(in_filename);
+  // Initialize the file stream
+  ifstream infile(in_filename);
 
-    // keep reading lines until the end of file is reached
-    while (infile) {
-      string s;
-    
-      // get the next line
-      if (!getline( infile, s )) break;
+  // keep reading lines until the end of file is reached
+  while (infile) {
+    string s;
 
-      istringstream ss( s );
-      vector <string> record;
+    // get the next line
+    if (!getline( infile, s )) break;
 
-      while (ss) {
-        string next;
-    
-        // get the next string before hitting a tab character
-        if (!getline( ss, next, ' ' )) break;
+    istringstream ss( s );
+    vector <string> record;
 
-        record.push_back( next );
-      }
-    
-      if (record.size() != 2) {
-        continue;
-      }
+    while (ss) {
+      string next;
 
-      int startFriend = stoi(record[0]);
-      int endFriend = stoi(record[1]);
+      // get the next string before hitting a tab character
+      if (!getline( ss, next, ' ' )) break;
 
-      // check for name in hashmap of actors
-      auto finding = friendsList.find(startFriend);
-
-      // if not, then create node and call addToGraph
-      if( finding == friendsList.end() ) {
-				extNode *newNode = new extNode(startFriend);
-				friendsList.insert(make_pair((int)startFriend, 
-										(extNode*)newNode));
-				finding = friendsList.find(startFriend);
-			} 
-
-			(*finding).second->listOfFriends.push_back(endFriend);
+      record.push_back( next );
     }
 
-    if (!infile.eof()) {
-      cerr << "Failed to read " << in_filename << "!\n";
-      return false;
+    if (record.size() != 2) {
+      continue;
     }
 
-    infile.close();
-    return true;
-	}
+    int data1 = stoi(record[0]);
+    int data2 = stoi(record[1]);
+
+    // check for name in hashmap of actors
+    auto search = friendsList.find(data1);
+
+    // if not, then create node and call addToGraph
+    if( search == friendsList.end() ) {
+      extNode *newNode = new extNode(data1);
+      friendsList.insert(make_pair((int)data1, (extNode*)newNode));
+      search = friendsList.find(data1);
+    } 
+
+    (*search).second->listOfFriends.push_back(data2);
+  }
+
+  if (!infile.eof()) {
+    cerr << "Failed to read " << in_filename << "!\n";
+    return false;
+  }
+
+  infile.close();
+  return true;
+}
 
 /**
  * Param: start - start friend
@@ -78,86 +77,127 @@ using namespace std;
  * Takes in start and end and finds how many mutual friends it takes to reach 
  * each other.  Uses DFS. 
  */
-	int extensionGraph::finding( string start, string end ) {
+int extensionGraph::search( string start, string end ) {
 
-		int starting = stoi(start);
-		int ending = stoi(end);
+  int st = stoi(start);
+  int en = stoi(end);
 
-		//stack used in DFS
-		stack<extNode*> connect;
+  //stack used in DFS
+  stack<extNode*> stack1;
 
-		unordered_map<int, extNode*>::iterator find = friendsList.find(starting);
+  unordered_map<int, extNode*>::iterator iter2 = friendsList.find(st);
 
-		//if the friend is not in the list
-		if( find == friendsList.end() ) 
-			return 0;
+  //if the friend is not in the list
+  if( iter2 == friendsList.end() ) 
+    return 0;
 
-		//push the start to the stack
-		connect.push((*find).second);
+  //push the start to the stack
+  stack1.push((*iter2).second);
 
-		while( !connect.empty() ) {
-			extNode* next = connect.top();
-			connect.pop();
-			next->check = true;
-	
-			//check if it is equal to end friend
-			if( next->key == ending ) {
-				int height = next->height + 1;
-				unordered_map<int, extNode*>::iterator clear = friendsList.begin();
-				for( ; clear != friendsList.end(); clear++ ) {
-					(*clear).second->height = 0;
-					(*clear).second->check = false;
-				}
-				return height;
-			}
+  while( !stack1.empty() ) {
+    extNode* next = stack1.top();
+    stack1.pop();
+    next->check = true;
 
-			//visit next's mutual friends
-			vector<int>::iterator mutualFriends = next->listOfFriends.begin();
-			for( ; mutualFriends != next->listOfFriends.end(); mutualFriends++ ) {
-				extNode* neighbor = friendsList.at(*mutualFriends);
+    //check if it is equal to end friend
+    f1(next, en);
+    //if( next->key == en ) {
+    //  int temp1 = next->height + 1;
+    //  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
+    //  for( ; iter1 != friendsList.end(); iter1++ ) {
+    //    (*iter1).second->height = 0;
+    //    (*iter1).second->check = false;
+    //  }
+    //  return temp1;
+    //}
 
-				//check if it has reached the end
-				if( neighbor->key == ending ) {
-					int height = next->height + 1;
-					//reset fields
-					unordered_map<int, extNode*>::iterator clear = friendsList.begin();
-					for( ; clear != friendsList.end(); clear++ ) {
-					(*clear).second->height = 0;
-					(*clear).second->check = false;
-					}
-					return height;
-				}
+    //visit next's mutual friends
+    vector<int>::iterator vec1 = next->listOfFriends.begin();
+    for( ; vec1 != next->listOfFriends.end(); vec1++ ) {
+      extNode* adjacent = friendsList.at(*vec1);
 
-				if( !neighbor->check ) {
-					neighbor->height = next->height + 1;
-					connect.push(neighbor);
-				}
-			}				
-		}
+      //check if it has reached the end
+      f2(adjacent, next, en);
+      //if( adjacent->key == en ) {
+      //  int temp1 = next->height + 1;
+      //  //reset fields
+      //  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
+      //  for( ; iter1 != friendsList.end(); iter1++ ) {
+      //    (*iter1).second->height = 0;
+      //    (*iter1).second->check = false;
+      //  }
+      //  return temp1;
+      //}
+      f3(adjacent, next, stack1);
+      //if( !adjacent->check ) {
+      //  adjacent->height = next->height + 1;
+      //  stack1.push(adjacent);
+      //}
+    }				
+  }
 
-		//clear
-		unordered_map<int, extNode*>::iterator clear = friendsList.begin();
-		for( ; clear != friendsList.end(); clear++ ) {
-			(*clear).second->height = 0;
-			(*clear).second->check = false;
-		}
+  //iter1
+  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
+  for( ; iter1 != friendsList.end(); iter1++ ) {
+    (*iter1).second->height = 0;
+    (*iter1).second->check = false;
+  }
 
-		//return 0 if no found connections
-		return 0;
-	}
+  //return 0 if no found stack1ions
+  return 0;
+}
+
+int extensionGraph::f1(extNode*& next, int& en)
+{
+  if( next->key == en ) {
+    int temp1 = next->height + 1;
+    unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
+    for( ; iter1 != friendsList.end(); iter1++ ) {
+      (*iter1).second->height = 0;
+      (*iter1).second->check = false;
+    }
+    return temp1;
+  }
+
+}
+
+int extensionGraph::f2(extNode*& adjacent, extNode*& next, int& en )
+{
+
+  if( adjacent->key == en ) {
+    int temp1 = next->height + 1;
+    //reset fields
+    unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
+    for( ; iter1 != friendsList.end(); iter1++ ) {
+      (*iter1).second->height = 0;
+      (*iter1).second->check = false;
+    }
+    return temp1;
+  }
+
+}
+
+void extensionGraph::f3(extNode*& adjacent, extNode*& next, stack<extNode*>& stack1 )
+{
+  if( !adjacent->check ) {
+    adjacent->height = next->height + 1;
+    stack1.push(adjacent);
+  }
+
+}
 
 /** 
-	* Param: None.
-	* Return: None.
-	*	Deallocated memory associated with the graph.
-	*/
+ * Param: None.
+ * Return: None.
+ *	Deallocated memory associated with the graph.
+ */
 
-	extensionGraph::~extensionGraph() {
-		unordered_map<int, extNode*>::iterator startN = friendsList.begin();
+extensionGraph::~extensionGraph() {
+  unordered_map<int, extNode*>::iterator st = friendsList.begin();
 
-		//delete nodes in actor
-		for( ; startN != friendsList.end(); startN++ ) {
-			delete startN->second;
-		}
+  //delete nodes in actor
+  for( ; st != friendsList.end(); st++ ) {
+    delete st->second;
+  }
 
-	}
+}

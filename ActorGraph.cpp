@@ -86,15 +86,8 @@ bool ActorGraph::loadFromFile(const char* in_filename, bool use_weighted_edges){
       insert_data = info.find(film);
     vector<ActorNode*> vector_of_actors;
     f1(film, vector_of_actors, insert_data);
-    //movie not there
-    //    if( insert_data == info.end() ) {
-    //      vector<ActorNode*> vector_of_actors;
-    //      info.insert(make_pair((string)movie, 
-    //            (vector<ActorNode*>)vector_of_actors));
-    //      insert_data = info.find(movie);
-    //    }
-
     ActorNode* temp = (*search).second;
+
     //add actor to that movie's vector
     ((*insert_data).second).push_back(temp);	
 
@@ -173,14 +166,9 @@ bool ActorGraph::loadFromFile(const char* in_filename) {
     // check for name in hashmap of actors
     unordered_map<string, ActorNode*>::iterator search = 
       actor.find(actor_name);
-    f2(search, actor_name);
+
     // if not, then create node and call addToGraph
-    // if( search == actor.end() ) {
-    //   ActorNode *newNode = new ActorNode(actor_name);
-    //   actor.insert(make_pair((string)actor_name, 
-    //         (ActorNode*)newNode));
-    //   search = actor.find(actor_name);
-    // } 
+    f2(search, actor_name);
 
     // else, update node
     string film = movie_title + '\t' + record[2];
@@ -269,13 +257,6 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
         int temp = curr->distance + next->movies.at((*movieSearch).first);
 
         f3(temp, next, movieSearch, pq, curr);
-        //new connection made in graph
-        //if( temp < next->distance && !next->checked ) {
-        //  next->previousMovie = (*movieSearch).first;
-        //  next->previous = curr;
-        //  next->distance = temp;
-        //  pq.push(next);
-        //}
 
         if( next -> name == dest ) {
           aNode = next;
@@ -289,12 +270,6 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
   if( aNode == nullptr || aNode->name != dest ) {
     unordered_map<string, ActorNode*>::iterator reset = actor.begin();
     f4(reset);
-    //for( ; reset != actor.end(); reset++ ) {
-    //  (*reset).second->distance = INT_MAX;	
-    //  (*reset).second->previous = nullptr;	
-    //  (*reset).second->previousMovie = "";
-    //  (*reset).second->checked = false;	
-    //}
 
     return rrr;
   }
@@ -309,20 +284,11 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
 
     if( aNode->previous->name == source ) {
       f5(aNode, temp, rrr, split);
-      //temp = "--[" + aNode->previousMovie.substr(0, split) + "#@" + 
-      //  aNode->previousMovie.substr(split+1, aNode->previousMovie.size())
-      //  + "]-->";
-      //rrr.push(temp);
       break;
     }
 
     else {
       f6(aNode, temp, rrr, split);
-      //temp = '(' + aNode->previous->name + ")--[" + 
-      //  aNode->previousMovie.substr(0, split) + "#@" + 
-      //  aNode->previousMovie.substr(split+1, aNode->previousMovie.size())
-      //  + "]-->";
-      //rrr.push(temp);
     }	
     //go back one node and reset node 
     aNode = aNode->previous;
@@ -331,12 +297,6 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
   //Reset graph
   unordered_map<string, ActorNode*>::iterator reset = actor.begin();
   f4(reset);
-  //for( ; reset != actor.end(); reset++ ) {
-  //  (*reset).second->distance = INT_MAX;	
-  //  (*reset).second->previous = nullptr;	
-  //  (*reset).second->previousMovie = "";
-  //  (*reset).second->checked = false;	
-  //}
   return rrr;
 }
 
@@ -401,25 +361,6 @@ vector<int> ActorGraph::BFSConnect( vector<string> source, vector<string> dest )
     unordered_map<string, ActorNode*>::iterator a_iter = actor.begin();
     for( ; a_iter != actor.end(); a_iter++ ) {
       f7(a_iter, yyy);
-      ////for each movie in hashmap
-      //unordered_map<string, int>::iterator n_iter = (*a_iter).second->movies.begin();
-      //for( ; n_iter != (*a_iter).second->movies.end(); n_iter++ ) {
-      //  //if movie == yyy
-      //  if( (*n_iter).second != yyy ) 
-      //    continue;
-      //  //find in info hashmap
-      //  unordered_map<string, vector<ActorNode*>>::iterator i_iter = info.find((*n_iter).first);
-      //  //if no
-      //  if( i_iter == info.end() ) {
-      //    //add movie to info
-      //    vector<ActorNode*> Data;
-      //    info.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
-      //    i_iter = info.find((*n_iter).first);
-      //  }
-      //  //add actor to info vector
-      //  (*i_iter).second.push_back((*a_iter).second);
-
-      //}
     }
 
     //search whole tree of current year or until end actor is found
@@ -435,35 +376,6 @@ vector<int> ActorGraph::BFSConnect( vector<string> source, vector<string> dest )
 
       while( !tss.empty() ) {
         f8(tss, yyy, vec1, dest, i, year_acted_together);
-        ////look at neighbors of current
-        //ActorNode* temp1 = tss.front();
-        //temp1->checked = true;
-        //vec1.push_back(temp1);
-        //tss.pop();
-        //auto iter2 = temp1->movies.begin();
-        //for( ; iter2 != temp1->movies.end(); iter2++ ) {
-        //  //	if( year_acted_together[i] != 9999 ) 
-        //  //	break;
-        //  auto iter3 = info.find((*iter2).first);
-        //  if( iter3 == info.end() ) {
-        //    continue;
-        //  }
-
-        //  auto iter4 = (*iter3).second.begin();
-        //  for( ; iter4 != (*iter3).second.end(); iter4++ ) {
-
-        //    //	if( year_acted_together[i] != 9999 ) 
-        //    //	break;
-        //    if( (*iter4)->name == dest[i] ) {
-        //      year_acted_together[i] = yyy;
-        //      break;
-        //    }
-        //    if( !(*iter4)->checked ) {
-        //      (*iter4)->checked = true;
-        //      tss.push((*iter4));
-        //    }
-        //  }
-        //}
       }
       vector<ActorNode*>::iterator iter5 = vec1.begin();
       for( ; iter5 != vec1.end(); iter5++ ) {
@@ -477,9 +389,6 @@ vector<int> ActorGraph::BFSConnect( vector<string> source, vector<string> dest )
   info.clear();
   unordered_map<string, ActorNode*>::iterator clear = actor.begin();
   f9(clear);
-  //for( ; clear != actor.end(); clear++ ) {
-  //  (*clear).second->checked = false;
-  //}
   return year_acted_together;
 }
 
@@ -569,53 +478,10 @@ vector<int> ActorGraph::UFindConnect( vector<string> source, vector<string> dest
     //create hashmap of all nodes for disjoint set
     for( ; a_iter != actor.end(); a_iter++ ) {
       f10(a_iter, yyy, u1);
-      ////for each movie in hashmap
-      ////set all nodes' previous pointers to end()
-      ////all weights should be 1
-      //unordered_map<string, int>::iterator n_iter = (*a_iter).second->movies.begin();
-      //for( ; n_iter != (*a_iter).second->movies.end(); n_iter++ ) {
-      //  if( (*n_iter).second != yyy ) 
-      //    continue;
-      //  //find in info hashmap
-      //  unordered_map<string, vector<ActorNode*>>::iterator i_iter = info.find((*n_iter).first);
-      //  //if no
-      //  if( i_iter == info.end() ) {
-      //    //add movie to info
-      //    vector<ActorNode*> Data;
-      //    info.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
-      //    i_iter = info.find((*n_iter).first);
-      //  }
-
-      //  //add actor to info vector
-      //  (*i_iter).second.push_back((*a_iter).second);
-      //  //union all info.second nodes into one set
-
-      //  int temp1 = (*i_iter).second.size();
-      //  if( temp1 == 1 ) {
-      //    ActorNode* root = (*a_iter).second; 
-      //    root->checked = true;
-      //    root->previous = root;
-      //    continue;
-      //  }
-      //  ActorNode* temp2 = (*i_iter).second.at(temp1-2);
-      //  u1.unionOp( temp2, (*a_iter).second, actor );
-      //}
     }
 
     /*find -- call on each pair in input vector*/
     f11(year_acted_together, source, dest, yyy, u1);
-    //for( int i = 0; i < source.size(); i++ ) {
-      //if( year_acted_together[i] != 9999 ) 
-      //  continue;
-      //ActorNode* st = u1.unionFind( actor.at(source[i]), actor );
-      //ActorNode* en = u1.unionFind( actor.at(dest[i]), actor );
-
-
-      ////if equal, cler prev & return yyy
-      //if( st->name == en->name ) {
-      //  year_acted_together[i] = yyy;
-      //}
-    //}
     //increment year
     yyy++;
   }
@@ -624,12 +490,6 @@ vector<int> ActorGraph::UFindConnect( vector<string> source, vector<string> dest
   info.clear();
   unordered_map<string, ActorNode*>::iterator iter1 = actor.begin();
   f12(iter1);
-
-  //for( ; iter1 != actor.end(); iter1++ ) {
-  //  (*iter1).second->checked = false;
-  //  (*iter1).second->previous = nullptr;
-  //  (*iter1).second->weight = 1;
-  //}
   return year_acted_together;
 }
 
@@ -646,18 +506,18 @@ void ActorGraph::f12(unordered_map<string, ActorNode*>::iterator& iter1)
 void ActorGraph::f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Union& u1 )
 {
 
-    for( int i = 0; i < source.size(); i++ ) {
-      if( year_acted_together[i] != 9999 ) 
-        continue;
-      ActorNode* st = u1.unionFind( actor.at(source[i]), actor );
-      ActorNode* en = u1.unionFind( actor.at(dest[i]), actor );
+  for( int i = 0; i < source.size(); i++ ) {
+    if( year_acted_together[i] != 9999 ) 
+      continue;
+    ActorNode* st = u1.unionFind( actor.at(source[i]), actor );
+    ActorNode* en = u1.unionFind( actor.at(dest[i]), actor );
 
 
-      //if equal, cler prev & return yyy
-      if( st->name == en->name ) {
-        year_acted_together[i] = yyy;
-      }
-}
+    //if equal, cler prev & return yyy
+    if( st->name == en->name ) {
+      year_acted_together[i] = yyy;
+    }
+  }
 }
 
 void ActorGraph::f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Union& u1)

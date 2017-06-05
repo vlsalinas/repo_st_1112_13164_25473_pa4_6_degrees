@@ -37,10 +37,12 @@ public:
    * counts
    * Takes in start and end and finds the mutual friends
    */
-	int finding( string start, string end );
+	int search( string start, string end );
 
 	
-
+int f1(extNode*& next, int& en);
+int f2(extNode*& adjacent, extNode*& next, int& en);
+void f3(extNode*& adjacent, extNode*& next, stack<extNode*>& stack1 );
 };
 
 

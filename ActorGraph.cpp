@@ -261,8 +261,7 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
 
     unordered_map<string, int>::iterator movieSearch = curr->movies.begin();
     for( ;movieSearch != curr->movies.end(); movieSearch++ ) {
-      unordered_map<string, vector<ActorNode*>>::iterator neighborSearch = 
-        info.find((*movieSearch).first);
+      unordered_map<string, vector<ActorNode*>>::iterator neighborSearch = info.find((*movieSearch).first);
       vector<ActorNode*> addActor = (*neighborSearch).second;
 
       for( int i = 0; i < addActor.size(); i++ ) {

@@ -288,12 +288,13 @@ f3(temp, next, movieSearch, pq, curr);
   //didn't find end actor
   if( aNode == nullptr || aNode->name != dest ) {
     unordered_map<string, ActorNode*>::iterator reset = actor.begin();
-    for( ; reset != actor.end(); reset++ ) {
-      (*reset).second->distance = INT_MAX;	
-      (*reset).second->previous = nullptr;	
-      (*reset).second->previousMovie = "";
-      (*reset).second->checked = false;	
-    }
+    f4(reset);  
+    //for( ; reset != actor.end(); reset++ ) {
+    //  (*reset).second->distance = INT_MAX;	
+    //  (*reset).second->previous = nullptr;	
+    //  (*reset).second->previousMovie = "";
+    //  (*reset).second->checked = false;	
+    //}
 
     return rrr;
   }
@@ -327,12 +328,13 @@ f3(temp, next, movieSearch, pq, curr);
 
   //Reset graph
   unordered_map<string, ActorNode*>::iterator reset = actor.begin();
-  for( ; reset != actor.end(); reset++ ) {
-    (*reset).second->distance = INT_MAX;	
-    (*reset).second->previous = nullptr;	
-    (*reset).second->previousMovie = "";
-    (*reset).second->checked = false;	
-  }
+  f4(reset);
+  //for( ; reset != actor.end(); reset++ ) {
+  //  (*reset).second->distance = INT_MAX;	
+  //  (*reset).second->previous = nullptr;	
+  //  (*reset).second->previousMovie = "";
+  //  (*reset).second->checked = false;	
+  //}
   return rrr;
 }
 
@@ -345,6 +347,16 @@ void ActorGraph::f3(int& temp, ActorNode*& next, unordered_map<string, int>::ite
           pq.push(next);
         }
 
+}
+
+void ActorGraph::f4(unordered_map<string, ActorNode*>::iterator& reset)
+{
+  for( ; reset != actor.end(); reset++ ) {
+    (*reset).second->distance = INT_MAX;	
+    (*reset).second->previous = nullptr;	
+    (*reset).second->previousMovie = "";
+    (*reset).second->checked = false;	
+  }
 }
 
 /**

@@ -49,6 +49,9 @@ public:
 
 void f3(int& temp, ActorNode*& next, unordered_map<string, int>::iterator& movieSearch, priority_queue<ActorNode*, vector<ActorNode*>, ActorNodeComp>& pq, ActorNode*& curr);
 
+
+void f4(unordered_map<string, ActorNode*>::iterator& reset);
+
   /**
    * Load the graph from a tab-delimited file of actor->movie relationships.
    *

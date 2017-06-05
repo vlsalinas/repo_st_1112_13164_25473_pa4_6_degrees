@@ -43,6 +43,7 @@ public:
 int f1(extNode*& next, int& en);
 int f2(extNode*& adjacent, extNode*& next, int& en);
 void f3(extNode*& adjacent, extNode*& next, stack<extNode*>& stack1 );
+void f4(unordered_map<int, extNode*>::iterator& iter1);
 };
 
 

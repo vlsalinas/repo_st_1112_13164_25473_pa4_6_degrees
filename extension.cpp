@@ -25,30 +25,30 @@ int main( int argc, char* argv[] ) {
   }
 
   //check validity of fourth param
-  extensionGraph * graph = new extensionGraph();
-  bool loadSuccess = graph->loadFromFile( argv[1] );
+  extensionGraph * EG1 = new extensionGraph();
+  bool temp1 = EG1->loadFromFile( argv[1] );
 
   //check success of loading
-  if( !loadSuccess ) return -1;
+  if( !temp1 ) return -1;
 
-  ifstream infile(argv[2]);
-  ofstream outfile(argv[3]);
+  ifstream fin(argv[2]);
+  ofstream fout(argv[3]);
 
-  int mutualCounts = 0;
+  int counter = 0;
 
   //reading file
-  while(infile) {
+  while(fin) {
 
     string s;
 
     //get the next line
-    if( !getline( infile, s )) {
+    if( !getline( fin, s )) {
       break;
     }
 
     istringstream ss( s );
     //will hold the start and end actors
-    vector <string> record;
+    vector <string> vec1;
 
     //while there are strings to read in
     while( ss ) {
@@ -60,26 +60,26 @@ int main( int argc, char* argv[] ) {
         break;
       }
 
-      record.push_back( next );
+      vec1.push_back( next );
     }
 
     //only read in two names
-    if( record.size() != 2 ) {
+    if( vec1.size() != 2 ) {
       continue;
     }
 
-    string start_friend(record[0]);
-    string end_friend(record[1]);
+    string data1(vec1[0]);
+    string data2(vec1[1]);
 
     //send information to output file
-    mutualCounts = graph->search(start_friend, end_friend ); 
+    counter = EG1->search(data1, data2 ); 
 
-    outfile << "# of connections between " << start_friend << " and "
-      << end_friend << " are " << mutualCounts << endl;
+    fout << "# of connections between " << data1 << " and "
+      << data2 << " are " << counter << endl;
   }
 
-  infile.close();
-  delete graph;
+  fin.close();
+  delete EG1;
 
   return 0;
 

@@ -69,6 +69,8 @@ bool extensionGraph::loadFromFile( const char* in_filename ) {
   return true;
 }
 
+
+
 /**
  * Param: start - start friend
  *				end - end friend
@@ -138,10 +140,11 @@ int extensionGraph::search( string start, string end ) {
 
   //iter1
   unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
-  for( ; iter1 != friendsList.end(); iter1++ ) {
-    (*iter1).second->height = 0;
-    (*iter1).second->check = false;
-  }
+  f4(iter1);
+  //for( ; iter1 != friendsList.end(); iter1++ ) {
+  //  (*iter1).second->height = 0;
+  //  (*iter1).second->check = false;
+  //}
 
   //return 0 if no found stack1ions
   return 0;
@@ -184,6 +187,14 @@ void extensionGraph::f3(extNode*& adjacent, extNode*& next, stack<extNode*>& sta
     stack1.push(adjacent);
   }
 
+}
+
+void extensionGraph::f4(unordered_map<int, extNode*>::iterator& iter1)
+{
+  for( ; iter1 != friendsList.end(); iter1++ ) {
+    (*iter1).second->height = 0;
+    (*iter1).second->check = false;
+  }
 }
 
 /** 

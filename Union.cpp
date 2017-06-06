@@ -20,13 +20,13 @@ using namespace std;
  * Union the src and dest nodes
  */
 
-void Union::unionOp( ActorNode* src, ActorNode* dest, unordered_map<string, ActorNode*> & actor  ) {
+void Union::union_them( ActorNode* src, ActorNode* dest, unordered_map<string, ActorNode*> & actor  ) {
 
   src->soFar = true;
   dest->soFar = true;
 
-  ActorNode* data1 = unionFind( src, actor );
-  ActorNode* data2 = unionFind( dest, actor );
+  ActorNode* data1 = union_find( src, actor );
+  ActorNode* data2 = union_find( dest, actor );
   if( data1 == data2 )
     return;
 
@@ -71,7 +71,7 @@ void Union::u2(ActorNode*& data1, ActorNode*& data2)
  * Find the node and connect all nodes in path to root
  */
 
-ActorNode* Union::unionFind( ActorNode* aNode, unordered_map<string, ActorNode*> & actor ) {
+ActorNode* Union::union_find( ActorNode* aNode, unordered_map<string, ActorNode*> & actor ) {
   stack<ActorNode*> stack1;
 
   //cerr << "HELLO" << endl;

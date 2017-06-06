@@ -47,7 +47,7 @@ bool extensionGraph::loadFromFile( const char* in_filename ) {
     int data1 = stoi(record[0]);
     int data2 = stoi(record[1]);
 
-    // check for name in hashmap of actors
+    // soFar for name in hashmap of actors
     auto search = friendsList.find(data1);
 
     // if not, then create node and call addToGraph
@@ -57,7 +57,7 @@ bool extensionGraph::loadFromFile( const char* in_filename ) {
       search = friendsList.find(data1);
     } 
 
-    (*search).second->listOfFriends.push_back(data2);
+    (*search).second->acquaintances.push_back(data2);
   }
 
   if (!infile.eof()) {
@@ -99,40 +99,40 @@ int extensionGraph::search( string start, string end ) {
   while( !stack1.empty() ) {
     extNode* next = stack1.top();
     stack1.pop();
-    next->check = true;
+    next->soFar = true;
 
-    //check if it is equal to end friend
+    //soFar if it is equal to end friend
     f1(next, en);
-    //if( next->key == en ) {
-    //  int temp1 = next->height + 1;
+    //if( next->item == en ) {
+    //  int temp1 = next->length + 1;
     //  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
     //  for( ; iter1 != friendsList.end(); iter1++ ) {
-    //    (*iter1).second->height = 0;
-    //    (*iter1).second->check = false;
+    //    (*iter1).second->length = 0;
+    //    (*iter1).second->soFar = false;
     //  }
     //  return temp1;
     //}
 
     //visit next's mutual friends
-    vector<int>::iterator vec1 = next->listOfFriends.begin();
-    for( ; vec1 != next->listOfFriends.end(); vec1++ ) {
+    vector<int>::iterator vec1 = next->acquaintances.begin();
+    for( ; vec1 != next->acquaintances.end(); vec1++ ) {
       extNode* adjacent = friendsList.at(*vec1);
 
-      //check if it has reached the end
+      //soFar if it has reached the end
       f2(adjacent, next, en);
-      //if( adjacent->key == en ) {
-      //  int temp1 = next->height + 1;
+      //if( adjacent->item == en ) {
+      //  int temp1 = next->length + 1;
       //  //reset fields
       //  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
       //  for( ; iter1 != friendsList.end(); iter1++ ) {
-      //    (*iter1).second->height = 0;
-      //    (*iter1).second->check = false;
+      //    (*iter1).second->length = 0;
+      //    (*iter1).second->soFar = false;
       //  }
       //  return temp1;
       //}
       f3(adjacent, next, stack1);
-      //if( !adjacent->check ) {
-      //  adjacent->height = next->height + 1;
+      //if( !adjacent->soFar ) {
+      //  adjacent->length = next->length + 1;
       //  stack1.push(adjacent);
       //}
     }				
@@ -142,8 +142,8 @@ int extensionGraph::search( string start, string end ) {
   unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
   f4(iter1);
   //for( ; iter1 != friendsList.end(); iter1++ ) {
-  //  (*iter1).second->height = 0;
-  //  (*iter1).second->check = false;
+  //  (*iter1).second->length = 0;
+  //  (*iter1).second->soFar = false;
   //}
 
   //return 0 if no found stack1ions
@@ -152,12 +152,12 @@ int extensionGraph::search( string start, string end ) {
 
 int extensionGraph::f1(extNode*& next, int& en)
 {
-  if( next->key == en ) {
-    int temp1 = next->height + 1;
+  if( next->item == en ) {
+    int temp1 = next->length + 1;
     unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
     for( ; iter1 != friendsList.end(); iter1++ ) {
-      (*iter1).second->height = 0;
-      (*iter1).second->check = false;
+      (*iter1).second->length = 0;
+      (*iter1).second->soFar = false;
     }
     return temp1;
   }
@@ -167,13 +167,13 @@ int extensionGraph::f1(extNode*& next, int& en)
 int extensionGraph::f2(extNode*& adjacent, extNode*& next, int& en )
 {
 
-  if( adjacent->key == en ) {
-    int temp1 = next->height + 1;
+  if( adjacent->item == en ) {
+    int temp1 = next->length + 1;
     //reset fields
     unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
     for( ; iter1 != friendsList.end(); iter1++ ) {
-      (*iter1).second->height = 0;
-      (*iter1).second->check = false;
+      (*iter1).second->length = 0;
+      (*iter1).second->soFar = false;
     }
     return temp1;
   }
@@ -182,8 +182,8 @@ int extensionGraph::f2(extNode*& adjacent, extNode*& next, int& en )
 
 void extensionGraph::f3(extNode*& adjacent, extNode*& next, stack<extNode*>& stack1 )
 {
-  if( !adjacent->check ) {
-    adjacent->height = next->height + 1;
+  if( !adjacent->soFar ) {
+    adjacent->length = next->length + 1;
     stack1.push(adjacent);
   }
 
@@ -192,8 +192,8 @@ void extensionGraph::f3(extNode*& adjacent, extNode*& next, stack<extNode*>& sta
 void extensionGraph::f4(unordered_map<int, extNode*>::iterator& iter1)
 {
   for( ; iter1 != friendsList.end(); iter1++ ) {
-    (*iter1).second->height = 0;
-    (*iter1).second->check = false;
+    (*iter1).second->length = 0;
+    (*iter1).second->soFar = false;
   }
 }
 

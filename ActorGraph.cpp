@@ -589,7 +589,7 @@ vector<int> ActorGraph::union_find( vector<string> source, vector<string> dest )
      //     continue;
      //   }
      //   ActorNode* temp = (*i_iter).second.at(size-2);
-     //   u1.unionOp( temp, (*a_iter).second, actor );
+     //   u1.union_them( temp, (*a_iter).second, actor );
      // }
     }
 
@@ -598,8 +598,8 @@ vector<int> ActorGraph::union_find( vector<string> source, vector<string> dest )
    // for( int i = 0; i < source.size(); i++ ) {
    //   if( year_acted_together[i] != 9999 ) 
    //     continue;
-   //   ActorNode* start = u1.unionFind( actor.at(source[i]), actor );
-   //   ActorNode* end = u1.unionFind( actor.at(dest[i]), actor );
+   //   ActorNode* start = u1.union_find( actor.at(source[i]), actor );
+   //   ActorNode* end = u1.union_find( actor.at(dest[i]), actor );
 
 
    //   //if equal, cler prev & return yyy
@@ -639,8 +639,8 @@ void ActorGraph::f11(vector<int>& year_acted_together, vector<string>& source, v
   for( int i = 0; i < source.size(); i++ ) {
     if( year_acted_together[i] != 9999 )
       continue;
-    ActorNode* st = u1.unionFind( actor.at(source[i]), actor );
-    ActorNode* en = u1.unionFind( actor.at(dest[i]), actor );
+    ActorNode* st = u1.union_find( actor.at(source[i]), actor );
+    ActorNode* en = u1.union_find( actor.at(dest[i]), actor );
 
 
       if( st->celebrity == en->celebrity ) {
@@ -680,7 +680,7 @@ void ActorGraph::f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& y
       continue;
     }
     ActorNode* temp2 = (*i_iter).second.at(temp1-2);
-    u1.unionOp( temp2, (*a_iter).second, actor );
+    u1.union_them( temp2, (*a_iter).second, actor );
   }
 }
 

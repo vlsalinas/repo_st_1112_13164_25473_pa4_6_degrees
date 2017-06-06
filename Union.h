@@ -27,7 +27,7 @@ class Union {
      * Return: none.
      * Union the src and dest nodes
      */
-    void unionOp( ActorNode* src, ActorNode* dest, unordered_map<string, ActorNode*> & actor  );
+    void union_them( ActorNode* src, ActorNode* dest, unordered_map<string, ActorNode*> & actor  );
 
 
     /**
@@ -35,7 +35,7 @@ class Union {
      * Return: ActorNode* - the sentinel node of aNode
      * Find the node and connect all nodes in path to root
      */
-    ActorNode* unionFind( ActorNode* aNode, unordered_map<string, ActorNode*> & actor );
+    ActorNode* union_find( ActorNode* aNode, unordered_map<string, ActorNode*> & actor );
 
     void u1(ActorNode*& data1, ActorNode*& data2);
     void u2(ActorNode*& data1, ActorNode*& data2);

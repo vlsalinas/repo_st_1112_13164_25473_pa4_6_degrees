@@ -11,11 +11,11 @@
  * Return: none
  * Construtor for a node
  */
-extNode::extNode(int value){
+extNode::extNode(int v){
 
-  key = value;
-  check = false;
-  height = 0;
+  item = v;
+  soFar = false;
+  length = 0;
 
 }
 

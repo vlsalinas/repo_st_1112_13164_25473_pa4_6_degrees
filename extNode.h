@@ -14,19 +14,19 @@ class extNode {
 
   public:
     /* Constructor */
-    extNode(int value);
+    extNode(int v);
 
     /* int of key */
-    int key;
+    int item;
 
     /* height */
-    int height;
+    int length;
 
     /* check boolean */
-    bool check;
+    bool soFar;
 
     /* vector of friends */
-    vector<int> listOfFriends;
+    vector<int> acquaintances;
 
 };
 

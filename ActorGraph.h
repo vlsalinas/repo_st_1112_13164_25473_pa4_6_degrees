@@ -97,7 +97,7 @@ class ActorGraph {
      * Use BFS to search our graph for the shortest path from the first actor
      * to the second
      */
-    stack<string> findPath( string source, string dest );
+    stack<string> pathFinding( string source, string dest );
 
     /**
      * BFS implementation for actorconnections
@@ -106,7 +106,7 @@ class ActorGraph {
      * Return: vector<int> - the year the two actors were connected for each pair
      *
      */
-    vector<int> BFSConnect( vector<string> source, vector<string> dest );
+    vector<int> BFS( vector<string> source, vector<string> dest );
 
 
     /**

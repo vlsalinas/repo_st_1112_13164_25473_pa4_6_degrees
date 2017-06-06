@@ -219,7 +219,7 @@ void ActorGraph::f2(unordered_map<string, ActorNode*>::iterator search, string a
  * Use BFS to search our graph for the shortest path from the first to last
  *		actor.
  */
-stack<string> ActorGraph::findPath( string source, string dest ) {
+stack<string> ActorGraph::pathFinding( string source, string dest ) {
   stack<string> rrr;
 
   unordered_map<string, ActorNode*>::iterator findActor = 
@@ -386,7 +386,7 @@ void ActorGraph::f4(unordered_map<string, ActorNode*>::iterator& reset)
  * Return: vector<int> - year they were first connected for each pair
  * Finds first connection between the two actors using BFS
  */
-vector<int> ActorGraph::BFSConnect( vector<string> source, vector<string> dest ) {
+vector<int> ActorGraph::BFS( vector<string> source, vector<string> dest ) {
 
   vector<int> year_acted_together ( source.size(), 9999 );
 

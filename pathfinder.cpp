@@ -97,7 +97,7 @@ int main( int argc, char* argv[] ) {
 
     //send information to output file
     stack<string> pathway = 
-      graph->findPath( start_actor, end_actor );
+      graph->pathFinding( start_actor, end_actor );
     if( pathway.empty() ) {
       continue;	
     } 

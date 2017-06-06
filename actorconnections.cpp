@@ -98,7 +98,7 @@ int main( int argc, char* argv[] ) {
   }
   //send information to output file
   if( alg ) {
-    returnYears = graph->BFSConnect( start_actor, end_actor );
+    returnYears = graph->BFS( start_actor, end_actor );
 
   }
   else {

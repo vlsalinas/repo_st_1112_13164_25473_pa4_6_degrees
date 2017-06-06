@@ -247,7 +247,7 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
 
   priority_queue<ActorNode*, vector<ActorNode*>, ActorNodeComp> pq;
   ActorNode* start = (*findActor).second;
-  start->distance = 0;
+  start->edge_weight = 0;
   pq.push(start);
 
   //search for neighbors
@@ -266,14 +266,14 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
 
       for( int i = 0; i < addActor.size(); i++ ) {
         ActorNode* next = addActor[i];
-        int temp = curr->distance + next->movies.at((*movieSearch).first);
+        int temp = curr->edge_weight + next->movies.at((*movieSearch).first);
 
         f3(temp, next, movieSearch, pq, curr);
         //new connection made in graph
-        //if( temp < next->distance && !next->checked ) {
+        //if( temp < next->edge_weight && !next->checked ) {
         //  next->previousMovie = (*movieSearch).first;
         //  next->previous = curr;
-        //  next->distance = temp;
+        //  next->edge_weight = temp;
         //  pq.push(next);
         //}
 
@@ -290,7 +290,7 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
     unordered_map<string, ActorNode*>::iterator reset = actor.begin();
     f4(reset);
     //for( ; reset != actor.end(); reset++ ) {
-    //  (*reset).second->distance = INT_MAX;	
+    //  (*reset).second->edge_weight = INT_MAX;	
     //  (*reset).second->previous = nullptr;	
     //  (*reset).second->previousMovie = "";
     //  (*reset).second->checked = false;	
@@ -332,7 +332,7 @@ stack<string> ActorGraph::findPath( string source, string dest ) {
   unordered_map<string, ActorNode*>::iterator reset = actor.begin();
   f4(reset);
   //for( ; reset != actor.end(); reset++ ) {
-  //  (*reset).second->distance = INT_MAX;	
+  //  (*reset).second->edge_weight = INT_MAX;	
   //  (*reset).second->previous = nullptr;	
   //  (*reset).second->previousMovie = "";
   //  (*reset).second->checked = false;	
@@ -360,10 +360,10 @@ void ActorGraph::f5(ActorNode*& aNode, string& temp, stack<string>& rrr, std::si
 
 void ActorGraph::f3(int& temp, ActorNode*& next, unordered_map<string, int>::iterator& movieSearch, priority_queue<ActorNode*, vector<ActorNode*>, ActorNodeComp>& pq, ActorNode*& curr)
 {
-  if( temp < next->distance && !next->checked ) {
+  if( temp < next->edge_weight && !next->checked ) {
     next->previousMovie = (*movieSearch).first;
     next->previous = curr;
-    next->distance = temp;
+    next->edge_weight = temp;
     pq.push(next);
   }
 
@@ -372,7 +372,7 @@ void ActorGraph::f3(int& temp, ActorNode*& next, unordered_map<string, int>::ite
 void ActorGraph::f4(unordered_map<string, ActorNode*>::iterator& reset)
 {
   for( ; reset != actor.end(); reset++ ) {
-    (*reset).second->distance = INT_MAX;	
+    (*reset).second->edge_weight = INT_MAX;	
     (*reset).second->previous = nullptr;	
     (*reset).second->previousMovie = "";
     (*reset).second->checked = false;	

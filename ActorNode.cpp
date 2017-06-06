@@ -16,7 +16,7 @@ using namespace std;
  */
 ActorNode::ActorNode(std::string n) {
   name = n;
-  distance = INT_MAX;
+  edge_weight = INT_MAX;
   previous = nullptr;
   checked = false;
   weight = 1;
@@ -32,8 +32,8 @@ ActorNode::ActorNode(std::string n) {
  */
 bool ActorNode::operator<(const ActorNode& other) {
   //if this's weight is different from other
-  if( distance != other.distance ) {
-    return distance > other.distance;
+  if( edge_weight != other.edge_weight ) {
+    return edge_weight > other.edge_weight;
   }
 
   //otherwise compare the actor names

@@ -16,34 +16,34 @@ class extNode;
 
 class extensionGraph {
 
-public:
-  extensionGraph(void) {}
+  public:
+    extensionGraph(void) {}
 
-	~extensionGraph(void);
+    ~extensionGraph(void);
 
-	unordered_map<int, extNode*> friendsList;
+    unordered_map<int, extNode*> friendsList;
 
-	/**
-	 * Param: in_filename - input filename
-	 * Return: boolean saying whether load was successful or not 
-	 * Load to the graph
-	 */
-	bool loadFromFile( const char* in_filename );
+    /**
+     * Param: in_filename - input filename
+     * Return: boolean saying whether load was successful or not 
+     * Load to the graph
+     */
+    bool loadFromFile( const char* in_filename );
 
-	/**
-   * Param: start - start friend
-   *				end - end friend
-   * Return: vector<int> - consists of total, before, and after mutual friends
-   * counts
-   * Takes in start and end and finds the mutual friends
-   */
-	int search( string start, string end );
+    /**
+     * Param: start - start friend
+     *				end - end friend
+     * Return: vector<int> - consists of total, before, and after mutual friends
+     * counts
+     * Takes in start and end and finds the mutual friends
+     */
+    int search( string start, string end );
 
-	
-int f1(extNode*& next, int& en);
-int f2(extNode*& adjacent, extNode*& next, int& en);
-void f3(extNode*& adjacent, extNode*& next, stack<extNode*>& stack1 );
-void f4(unordered_map<int, extNode*>::iterator& iter1);
+
+    int f1(extNode*& next, int& en);
+    int f2(extNode*& adjacent, extNode*& next, int& en);
+    void f3(extNode*& adjacent, extNode*& next, stack<extNode*>& stack1 );
+    void f4(unordered_map<int, extNode*>::iterator& iter1);
 };
 
 

@@ -29,7 +29,7 @@ class ActorNode {
     int weight;
 
     /* counter of distance */
-    int distance;
+    int edge_weight;
 
     /* year tracker for ufind */
     int year;

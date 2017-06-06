@@ -41,7 +41,7 @@ int main( int argc, char* argv[] ) {
     ww = true;
   }
 
-  time.begin_timer();
+  time.time_start();
 
   bool loadSuccess = graph->loadFromFile( argv[1], ww );
 
@@ -119,7 +119,7 @@ int main( int argc, char* argv[] ) {
     return -1;
   }
 
-  long long timing = time.end_timer();
+  long long timing = time.time_end();
   cout << "Time taken: " << timing << endl;
   fin.close();	
   delete graph;	

@@ -8,20 +8,20 @@ using std::istream;
 
 class Timer{
   private:
-    std::chrono::time_point<std::chrono::high_resolution_clock> start;
+    std::chrono::time_point<std::chrono::high_resolution_clock> st;
 
   public:
 
     /*
-     * Function called when starting the timer.
+     * Function called when sting the timer.
      */
-    void begin_timer();
+    void time_start();
 
     /*
      * Function called when ending the timer. Returns duration in nanoseconds
-     * PRECONDITION: begin_timer() must be called before this function
+     * PRECONDITION: time_start() must be called before this function
      */
-    long long end_timer();
+    long long time_end();
 
 
 };

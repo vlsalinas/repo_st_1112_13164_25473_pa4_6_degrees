@@ -30,9 +30,9 @@ class ActorGraph {
 
   protected:  
     //vector of our actor nodes
-    unordered_map<string, vector<ActorNode*>> info;
+    unordered_map<string, vector<ActorNode*>> details;
     unordered_map<string, ActorNode*> actor;
-    unordered_map<string, vector<string>> connections;
+    unordered_map<string, vector<string>> actor_links;
 
   public:
     ActorGraph(void) {}
@@ -43,7 +43,7 @@ class ActorGraph {
 
     void f1(string film, vector<ActorNode*>& vector_of_actors, unordered_map<string, vector<ActorNode*>>::iterator& insert_data);
 
-    void f2(unordered_map<string, ActorNode*>::iterator search, string actor_name);
+    void f2(unordered_map<string, ActorNode*>::iterator& search, string& actor_name);
 
     void f3(int& temp, ActorNode*& next, unordered_map<string, int>::iterator& movieSearch, priority_queue<ActorNode*, vector<ActorNode*>, ActorNodeComp>& pq, ActorNode*& curr);
 
@@ -116,7 +116,7 @@ class ActorGraph {
      * Return: vector<int> - the year the two actors were connected for each pair
      *
      */
-    vector<int> UFindConnect( vector<string> source, vector<string> dest );
+    vector<int> union_find( vector<string> source, vector<string> dest );
 
 };
 

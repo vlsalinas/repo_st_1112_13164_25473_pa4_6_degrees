@@ -19,7 +19,7 @@ int main( int argc, char* argv[] ) {
 
   bool alg = false;
   ActorGraph * graph = new ActorGraph();
-
+  cout << "1" << endl;
   if( argc != 4 && argc != 5 ) {
     cerr << "Incorrect number of arguments. Try again." << endl;
     return -1;
@@ -39,20 +39,20 @@ int main( int argc, char* argv[] ) {
     cerr << "Invalid fourth argument. Goodbye" << endl;
     return -1;
   }
-
+  cout << "2" << endl;
   bool loadSuccess = graph->loadFromFile( argv[1] );
-
+  cout << "6" << endl;
   //check success of loading
   if( !loadSuccess ) return -1;
-
+  cout << "5" << endl;
   ifstream infile(argv[2]);
   ofstream outfile(argv[3]);
-
+  cout << "4" << endl;
   bool have_header = false;
   vector<string> start_actor;
   vector<string> end_actor;
   vector<int> returnYears;
-
+  cout << "3" << endl;
   //reading file
   while(infile) {
 
@@ -102,7 +102,7 @@ int main( int argc, char* argv[] ) {
 
   }
   else {
-    returnYears = graph->UFindConnect( start_actor, end_actor ); 
+    returnYears = graph->union_find( start_actor, end_actor ); 
   }
 
   for( int i = 0; i < returnYears.size(); i++ ) {

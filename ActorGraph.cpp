@@ -81,17 +81,17 @@ bool ActorGraph::loadFromFile(const char* in_filename, bool use_weighted_edges){
 
     ((*search).second->films_list).insert(make_pair((string)film, (int)cost));
 
-    //add to info hashmap
+    //add to details hashmap
     unordered_map<string, vector<ActorNode*>>::iterator
-      insert_data = info.find(film);
+      insert_data = details.find(film);
     vector<ActorNode*> vector_of_actors;
     f1(film, vector_of_actors, insert_data);
     //movie not there
-    //    if( insert_data == info.end() ) {
+    //    if( insert_data == details.end() ) {
     //      vector<ActorNode*> vector_of_actors;
-    //      info.insert(make_pair((string)movie, 
+    //      details.insert(make_pair((string)movie, 
     //            (vector<ActorNode*>)vector_of_actors));
-    //      insert_data = info.find(movie);
+    //      insert_data = details.find(movie);
     //    }
 
     ActorNode* temp = (*search).second;
@@ -112,9 +112,9 @@ bool ActorGraph::loadFromFile(const char* in_filename, bool use_weighted_edges){
 
 void ActorGraph::f1(string film, vector<ActorNode*>& vector_of_actors, unordered_map<string, vector<ActorNode*>>::iterator& insert_data)
 {
-  if( insert_data == info.end() ) {
-    info.insert(make_pair((string)film, (vector<ActorNode*>)vector_of_actors));
-    insert_data = info.find(film);
+  if( insert_data == details.end() ) {
+    details.insert(make_pair((string)film, (vector<ActorNode*>)vector_of_actors));
+    insert_data = details.find(film);
   }
 }
 
@@ -122,7 +122,7 @@ void ActorGraph::f1(string film, vector<ActorNode*>& vector_of_actors, unordered
 /**
  * Param: in_filename - name of input file
  * Return: boolean - whether load was successful or not
- * Load in info to populate ActorNodes and actor hashmap
+ * Load in details to populate ActorNodes and actor hashmap
  */
 bool ActorGraph::loadFromFile(const char* in_filename) {
 
@@ -201,7 +201,7 @@ bool ActorGraph::loadFromFile(const char* in_filename) {
   return true;
 }
 
-void ActorGraph::f2(unordered_map<string, ActorNode*>::iterator search, string actor_name)
+void ActorGraph::f2(unordered_map<string, ActorNode*>::iterator& search, string& actor_name)
 {
   if( search == actor.end() ) {
     ActorNode *newNode = new ActorNode(actor_name);
@@ -261,7 +261,7 @@ stack<string> ActorGraph::pathFinding( string source, string dest ) {
 
     unordered_map<string, int>::iterator movieSearch = curr->films_list.begin();
     for( ;movieSearch != curr->films_list.end(); movieSearch++ ) {
-      unordered_map<string, vector<ActorNode*>>::iterator neighborSearch = info.find((*movieSearch).first);
+      unordered_map<string, vector<ActorNode*>>::iterator neighborSearch = details.find((*movieSearch).first);
       vector<ActorNode*> addActor = (*neighborSearch).second;
 
       for( int i = 0; i < addActor.size(); i++ ) {
@@ -407,16 +407,16 @@ vector<int> ActorGraph::BFS( vector<string> source, vector<string> dest ) {
       //  //if movie == yyy
       //  if( (*n_iter).second != yyy ) 
       //    continue;
-      //  //find in info hashmap
-      //  unordered_map<string, vector<ActorNode*>>::iterator i_iter = info.find((*n_iter).first);
+      //  //find in details hashmap
+      //  unordered_map<string, vector<ActorNode*>>::iterator i_iter = details.find((*n_iter).first);
       //  //if no
-      //  if( i_iter == info.end() ) {
-      //    //add movie to info
+      //  if( i_iter == details.end() ) {
+      //    //add movie to details
       //    vector<ActorNode*> Data;
-      //    info.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
-      //    i_iter = info.find((*n_iter).first);
+      //    details.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
+      //    i_iter = details.find((*n_iter).first);
       //  }
-      //  //add actor to info vector
+      //  //add actor to details vector
       //  (*i_iter).second.push_back((*a_iter).second);
 
       //}
@@ -444,8 +444,8 @@ vector<int> ActorGraph::BFS( vector<string> source, vector<string> dest ) {
         //for( ; iter2 != temp1->films_list.end(); iter2++ ) {
         //  //	if( year_acted_together[i] != 9999 ) 
         //  //	break;
-        //  auto iter3 = info.find((*iter2).first);
-        //  if( iter3 == info.end() ) {
+        //  auto iter3 = details.find((*iter2).first);
+        //  if( iter3 == details.end() ) {
         //    continue;
         //  }
 
@@ -474,7 +474,7 @@ vector<int> ActorGraph::BFS( vector<string> source, vector<string> dest ) {
   }
 
   //reset graph
-  info.clear();
+  details.clear();
   unordered_map<string, ActorNode*>::iterator clear = actor.begin();
   for( ; clear != actor.end(); clear++ ) {
     (*clear).second->soFar = false;
@@ -492,8 +492,8 @@ void ActorGraph::f8(queue<ActorNode*>& tss, int& yyy, vector<ActorNode*>& vec1, 
   for( ; iter2 != temp1->films_list.end(); iter2++ ) {
     //	if( year_acted_together[i] != 9999 ) 
     //	break;
-    auto iter3 = info.find((*iter2).first);
-    if( iter3 == info.end() ) {
+    auto iter3 = details.find((*iter2).first);
+    if( iter3 == details.end() ) {
       continue;
     }
 
@@ -523,16 +523,16 @@ void ActorGraph::f7(unordered_map<string, ActorNode*>::iterator& a_iter, int& yy
     //if movie == yyy
     if( (*n_iter).second != yyy ) 
       continue;
-    //find in info hashmap
-    unordered_map<string, vector<ActorNode*>>::iterator i_iter = info.find((*n_iter).first);
+    //find in details hashmap
+    unordered_map<string, vector<ActorNode*>>::iterator i_iter = details.find((*n_iter).first);
     //if no
-    if( i_iter == info.end() ) {
-      //add movie to info
+    if( i_iter == details.end() ) {
+      //add movie to details
       vector<ActorNode*> Data;
-      info.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
-      i_iter = info.find((*n_iter).first);
+      details.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
+      i_iter = details.find((*n_iter).first);
     }
-    //add actor to info vector
+    //add actor to details vector
     (*i_iter).second.push_back((*a_iter).second);
 
   }
@@ -547,7 +547,7 @@ void ActorGraph::f7(unordered_map<string, ActorNode*>::iterator& a_iter, int& yy
  * Return: vector<int> - vector of years they were first connected
  * Finds first connection between the two actors using BFS
  */
-vector<int> ActorGraph::UFindConnect( vector<string> source, vector<string> dest ) {
+vector<int> ActorGraph::union_find( vector<string> source, vector<string> dest ) {
   vector<int> year_acted_together (source.size(), 9999);
 
 
@@ -555,7 +555,7 @@ vector<int> ActorGraph::UFindConnect( vector<string> source, vector<string> dest
   Union u1;
   //for each year
   while( yyy != 2016 ) {
-    //populate info like in BFS
+    //populate details like in BFS
     unordered_map<string, ActorNode*>::iterator a_iter = actor.begin();
     //create hashmap of all nodes for disjoint set
     for( ; a_iter != actor.end(); a_iter++ ) {
@@ -567,19 +567,19 @@ vector<int> ActorGraph::UFindConnect( vector<string> source, vector<string> dest
      // for( ; n_iter != (*a_iter).second->films_list.end(); n_iter++ ) {
      //   if( (*n_iter).second != yyy ) 
      //     continue;
-     //   //find in info hashmap
-     //   unordered_map<string, vector<ActorNode*>>::iterator i_iter = info.find((*n_iter).first);
+     //   //find in details hashmap
+     //   unordered_map<string, vector<ActorNode*>>::iterator i_iter = details.find((*n_iter).first);
      //   //if no
-     //   if( i_iter == info.end() ) {
-     //     //add movie to info
+     //   if( i_iter == details.end() ) {
+     //     //add movie to details
      //     vector<ActorNode*> Data;
-     //     info.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
-     //     i_iter = info.find((*n_iter).first);
+     //     details.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data)); 
+     //     i_iter = details.find((*n_iter).first);
      //   }
 
-     //   //add actor to info vector
+     //   //add actor to details vector
      //   (*i_iter).second.push_back((*a_iter).second);
-     //   //union all info.second nodes into one set
+     //   //union all details.second nodes into one set
 
      //   int size = (*i_iter).second.size();
      //   if( size == 1 ) {
@@ -612,7 +612,7 @@ vector<int> ActorGraph::UFindConnect( vector<string> source, vector<string> dest
   }
 
   //if nothing
-  info.clear();
+  details.clear();
   unordered_map<string, ActorNode*>::iterator iter1 = actor.begin();
   f12(iter1);
  // for( ; iter1 != actor.end(); iter1++ ) {
@@ -658,19 +658,19 @@ void ActorGraph::f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& y
   for( ; n_iter != (*a_iter).second->films_list.end(); n_iter++ ) {
     if( (*n_iter).second != yyy )
       continue;
-    //find in info hashmap
-    unordered_map<string, vector<ActorNode*>>::iterator i_iter = info.find((*n_iter).first);
+    //find in details hashmap
+    unordered_map<string, vector<ActorNode*>>::iterator i_iter = details.find((*n_iter).first);
     //if no
-    if( i_iter == info.end() ) {
-      //add movie to info
+    if( i_iter == details.end() ) {
+      //add movie to details
       vector<ActorNode*> Data;
-      info.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data));
-      i_iter = info.find((*n_iter).first);
+      details.insert(make_pair((string)(*n_iter).first, (vector<ActorNode*>)Data));
+      i_iter = details.find((*n_iter).first);
     }
 
-    //add actor to info vector
+    //add actor to details vector
     (*i_iter).second.push_back((*a_iter).second);
-    //union all info.second nodes into one set
+    //union all details.second nodes into one set
 
     int temp1 = (*i_iter).second.size();
     if( temp1 == 1 ) {
@@ -692,7 +692,7 @@ void ActorGraph::f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& y
 
   ActorGraph::~ActorGraph() {
     unordered_map<string, ActorNode*>::iterator st1 = actor.begin();
-    unordered_map<string, vector<ActorNode*>>::iterator st2 = info.begin();
+    unordered_map<string, vector<ActorNode*>>::iterator st2 = details.begin();
 
     //delete nodes in actor
     for( ; st1 != actor.end(); st1++ ) {

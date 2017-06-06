@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 6-1-2017
+ * CSE 100
+ * Project Assignmenr 4, Graphs
+ */
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -11,51 +18,46 @@
 
 using namespace std;
 
-/* 
- * Param: argc - number of arguments taken in
- *				argv - array of pointers to the arguments passed in
- * Return: int - whether program was successful or not
- */
-
 int main( int argc, char* argv[] ) {
 
+  // Validation check for correct number of arguments.
   if( argc != 4 ) {
-    cerr << "Incorrect number of arguments. Try again." << endl;
+    cerr << "Invalid number of command line arguments. Aborting." << endl;
     return -1;
   }
 
-  //check validity of fourth param
+  // Validation check
   extensionGraph * EG1 = new extensionGraph();
   bool temp1 = EG1->loadFromFile( argv[1] );
 
-  //check success of loading
   if( !temp1 ) return -1;
 
+  // open file stream for read and write.
   ifstream fin(argv[2]);
   ofstream fout(argv[3]);
 
   int counter = 0;
 
-  //reading file
+  // read file
   while(fin) {
 
     string s;
 
-    //get the next line
     if( !getline( fin, s )) {
       break;
     }
 
     istringstream ss( s );
-    //will hold the start and end actors
+    
+    // records source and dest actors
     vector <string> vec1;
 
-    //while there are strings to read in
+    // while there are lines to be read
     while( ss ) {
 
       string next;
 
-      //get the next string before hitting tab
+      // record next data before tab
       if( !getline( ss, next, ' ' )) {
         break;
       }
@@ -63,7 +65,7 @@ int main( int argc, char* argv[] ) {
       vec1.push_back( next );
     }
 
-    //only read in two names
+    // stop at 2 actors recorded
     if( vec1.size() != 2 ) {
       continue;
     }
@@ -71,16 +73,13 @@ int main( int argc, char* argv[] ) {
     string data1(vec1[0]);
     string data2(vec1[1]);
 
-    //send information to output file
-    counter = EG1->search(data1, data2 ); 
-
-    fout << "# of connections between " << data1 << " and "
-      << data2 << " are " << counter << endl;
+    // write to output file
+    counter = EG1->searching(data1, data2 ); 
+    fout << "# of connections between " << data1 << " and " << data2 << " are " << counter << endl;
   }
 
   fin.close();
   delete EG1;
-
   return 0;
 
 }

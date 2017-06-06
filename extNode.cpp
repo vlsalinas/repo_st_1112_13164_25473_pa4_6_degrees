@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 6-3-2017
+ * CSE 100
+ * Project Assignmenr 4, Graphs
+ */
+
 #include <iostream>
 #include <set>
 #include <vector>
@@ -7,15 +14,18 @@
 #include "extNode.h"
 
 /**
- * Param: value of the node
- * Return: none
- * Construtor for a node
+ * Param: 
+ *              v = value of node
+ * Return: 
+ *              None.
+ * Description:
+ *              Construtor for a node
  */
 extNode::extNode(int v){
 
-  item = v;
   soFar = false;
   length = 0;
+  item = v;
 
 }
 

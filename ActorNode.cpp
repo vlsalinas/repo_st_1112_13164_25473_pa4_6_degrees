@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 6-2-2017
+ * CSE 100
+ * Program Assignment 4, Graphs
+ */
+
 #include <iostream>
 #include <fstream>
 #include <climits>
@@ -10,33 +17,36 @@
 using namespace std;
 
 /*
- * Param: The celebrity of the actor whose node it is
- * Return: None.
- * Initialize the node.
+ * Paramieters:
+ *              n = name of actor
+ * Return: 
+ *              None.
+ * Description:
+ *              Constructor
  */
 ActorNode::ActorNode(std::string n) {
   celebrity = n;
-  edge_weight = INT_MAX;
-  ante = nullptr;
-  soFar = false;
   cost = 1;
+  ante = nullptr;
+  edge_weight = INT_MAX;
+  soFar = false;
 }
 
 /*
- * Param: other - the other node to be compared to this
- * Return: boolean - whether the passed in node is less than this or not
- *		true - this < other
- *		false - this > other
- * Compares the passed in node to the current node using first the weight
- *		and then the actor as a means of comparison.
+ * Parameters: 
+ *              other = second node to be compared
+ * Return: 
+ *              boolean whether the passed in node is less than this or not
+ *		if true, then this is less than other
+ *		else false, then this is greater than other
+ * Description:
+ *              Compares weight.
  */
 bool ActorNode::operator<(const ActorNode& other) {
-  //if this's weight is different from other
   if( edge_weight != other.edge_weight ) {
     return edge_weight > other.edge_weight;
   }
 
-  //otherwise compare the actor celebritys
   return celebrity > other.celebrity;
 }
 

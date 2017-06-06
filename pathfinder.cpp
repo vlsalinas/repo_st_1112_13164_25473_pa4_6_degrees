@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 6-5-2017
+ * CSE 100
+ * Project Assignment 4, Graphs
+ */
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,30 +16,23 @@
 #include "ActorNode.h"
 using namespace std;
 
-
-/* 
- * Param: argc - number of arguments taken in
- *				argv - array of pointers to the arguments passed in
- * Return: int - whether program was successful or not
- */
-
 int main( int argc, char* argv[] ) {
 
   bool ww = false;
-  ActorGraph * graph = new ActorGraph();
-  Timer time;
+  ActorGraph * actor_graph = new ActorGraph();
+  Timer duration;
 
   //do checks on all input
 
   //check if number of args is correct
   if( argc != 5 ) {
-    cerr << "Not the right number of arguments. Goodbye." << endl;
+    cerr << "Invalid number of arguments. Aborting." << endl;
     return -1;
   }
 
   //check ww boolean
   if( *argv[2] != 'u' && *argv[2] != 'w' ) {
-    cerr << "Invalid argument. Try later." << *argv[2] << endl;
+    cerr << "Invalid argument: " << *argv[2] << endl;
     return -1;
   }
 
@@ -41,12 +41,12 @@ int main( int argc, char* argv[] ) {
     ww = true;
   }
 
-  time.time_start();
+  duration.time_start();
 
-  bool loadSuccess = graph->loadFromFile( argv[1], ww );
+  bool load_file = actor_graph->loadFromFile( argv[1], ww );
 
   //check success of loading
-  if( !loadSuccess ) return -1;
+  if( !load_file ) return -1;
 
   ifstream fin(argv[3]);
   ofstream fout(argv[4]);
@@ -58,12 +58,11 @@ int main( int argc, char* argv[] ) {
 
     string s;
 
-    //get the next line
     if( !getline( fin, s )) {
       break;
     }
 
-    //skip header
+    // ignore header
     if( !have_header ) {
       have_header = true;
       fout << "(actor)--[movie#@year]-->(actor)--..." << endl;
@@ -71,15 +70,16 @@ int main( int argc, char* argv[] ) {
     }
 
     istringstream ss( s );
-    //will hold the start and end actors
+
+    // Record actors
     vector <string> pairs;
 
-    //while there are strings to read in
+    // Read entire file.
     while( ss ) {
 
       string next;
 
-      //get the next string before hitting a tab character
+      // Read in next string before tab
       if( !getline( ss, next, '\t' )) {
         break;
       }
@@ -87,7 +87,7 @@ int main( int argc, char* argv[] ) {
       pairs.push_back( next );
     }
 
-    //only read in two names
+    // stop at 2 actors
     if( pairs.size() != 2 ) {
       continue;
     }
@@ -95,22 +95,21 @@ int main( int argc, char* argv[] ) {
     string start_actor(pairs[0]);
     string end_actor(pairs[1]);
 
-    //send information to output file
-    stack<string> pathway = 
-      graph->pathFinding( start_actor, end_actor );
-    if( pathway.empty() ) {
+    // write data to output file
+    stack<string> stack1 = actor_graph->pathFinding( start_actor, end_actor );
+    if( stack1.empty() ) {
       continue;	
     } 
 
     fout << "(" << start_actor << ")";
 
-    //pop off pathway from stack
-    while( !pathway.empty() ) {
-      fout << pathway.top();
-      pathway.pop();
+    // get stack1 from stack
+    while( !stack1.empty() ) {
+      fout << stack1.top();
+      stack1.pop();
     }
 
-    //add last actor to line
+    // Add last actor
     fout << "(" << end_actor << ")\n";
   }
 
@@ -118,11 +117,11 @@ int main( int argc, char* argv[] ) {
     cerr << "Failed to read " << argv[3] << "!\n";
     return -1;
   }
-
-  long long timing = time.time_end();
-  cout << "Time taken: " << timing << endl;
+  // stop timer
+  long long timing = duration.time_end();
+  cout << "Duration (nanoseconds): " << timing << endl;
   fin.close();	
-  delete graph;	
+  delete actor_graph;	
 
   return 0;
 

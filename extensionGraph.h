@@ -1,3 +1,9 @@
+/*
+ * Vincent Salinas
+ * 5-31-2017
+ * CSE 100
+ * Project Assignment 4, Graphs
+ */
 
 #ifndef EXTENSIONGRAPH_H
 #define EXTENSIONGRAPH_H
@@ -17,33 +23,25 @@ class extNode;
 class extensionGraph {
 
   public:
-    extensionGraph(void) {}
-
-    ~extensionGraph(void);
-
-    unordered_map<int, extNode*> friendsList;
-
-    /**
-     * Param: in_filename - input filename
-     * Return: boolean saying whether load was successful or not 
-     * Load to the graph
-     */
-    bool loadFromFile( const char* in_filename );
-
-    /**
-     * Param: start - start friend
-     *				end - end friend
-     * Return: vector<int> - consists of total, before, and after mutual friends
-     * counts
-     * Takes in start and end and finds the mutual friends
-     */
-    int search( string start, string end );
-
-
+    // Helper functions
     int f1(extNode*& next, int& en);
     int f2(extNode*& adjacent, extNode*& next, int& en);
     void f3(extNode*& adjacent, extNode*& next, stack<extNode*>& stack1 );
     void f4(unordered_map<int, extNode*>::iterator& iter1);
+    extensionGraph(void) {} // Constructor
+    ~extensionGraph(void); // Destructor
+    unordered_map<int, extNode*> list1;
+
+
+    // Param: in_filename = file to be read 
+    // Return: boolean indicating successful read or not 
+    // Description: return true if successful load, else false. Also populates graph.
+    bool loadFromFile( const char* in_filename );
+
+    // Param: (1) start = start actor, (2) end = end actor
+    // Return: int = # of mutual friends* 
+    // Description: searches mutual friends between start and end actors
+    int searching( string start, string end );
 };
 
 

@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 6-4-2017
+ * CSE 100
+ * Project Assignment 4, Graphs
+ */
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -18,10 +25,10 @@ using namespace std;
  */
 bool extensionGraph::loadFromFile( const char* in_filename ) {
 
-  // Initialize the file stream
+  // Open file stream and get file. 
   ifstream infile(in_filename);
 
-  // keep reading lines until the end of file is reached
+  // Read entire file in.
   while (infile) {
     string s;
 
@@ -34,7 +41,7 @@ bool extensionGraph::loadFromFile( const char* in_filename ) {
     while (ss) {
       string next;
 
-      // get the next string before hitting a tab character
+      // Get next piece of data before tab
       if (!getline( ss, next, ' ' )) break;
 
       record.push_back( next );
@@ -47,14 +54,14 @@ bool extensionGraph::loadFromFile( const char* in_filename ) {
     int data1 = stoi(record[0]);
     int data2 = stoi(record[1]);
 
-    // soFar for name in hashmap of actors
-    auto search = friendsList.find(data1);
+    // search for name in hashmap of actors
+    auto search = list1.find(data1);
 
-    // if not, then create node and call addToGraph
-    if( search == friendsList.end() ) {
+    // if not found, create node and add to graph
+    if( search == list1.end() ) {
       extNode *newNode = new extNode(data1);
-      friendsList.insert(make_pair((int)data1, (extNode*)newNode));
-      search = friendsList.find(data1);
+      list1.insert(make_pair((int)data1, (extNode*)newNode));
+      search = list1.find(data1);
     } 
 
     (*search).second->acquaintances.push_back(data2);
@@ -69,31 +76,31 @@ bool extensionGraph::loadFromFile( const char* in_filename ) {
   return true;
 }
 
-
-
 /**
- * Param: start - start friend
- *				end - end friend
- * Return: vector<int> - consists of total, before, and after mutual friends
- * counts
- * Takes in start and end and finds how many mutual friends it takes to reach 
- * each other.  Uses DFS. 
+ * Param: 
+ *              start = source actor
+ *              end = destination actor	
+ * Return:
+ *              vector<int> = vector of mutual friends
+ * Description:
+ *              Determine how many friends from start actor to end actor using
+ *              Depth First Search 
  */
-int extensionGraph::search( string start, string end ) {
+int extensionGraph::searching( string start, string end ) {
 
   int st = stoi(start);
   int en = stoi(end);
 
-  //stack used in DFS
+  // create stack for DFS
   stack<extNode*> stack1;
 
-  unordered_map<int, extNode*>::iterator iter2 = friendsList.find(st);
+  unordered_map<int, extNode*>::iterator iter2 = list1.find(st);
 
-  //if the friend is not in the list
-  if( iter2 == friendsList.end() ) 
+  // Friend not found
+  if( iter2 == list1.end() ) 
     return 0;
 
-  //push the start to the stack
+  // push to stack (start) 
   stack1.push((*iter2).second);
 
   while( !stack1.empty() ) {
@@ -101,52 +108,24 @@ int extensionGraph::search( string start, string end ) {
     stack1.pop();
     next->soFar = true;
 
-    //soFar if it is equal to end friend
+    // soFar if it is equal to end friend
     f1(next, en);
-    //if( next->item == en ) {
-    //  int temp1 = next->length + 1;
-    //  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
-    //  for( ; iter1 != friendsList.end(); iter1++ ) {
-    //    (*iter1).second->length = 0;
-    //    (*iter1).second->soFar = false;
-    //  }
-    //  return temp1;
-    //}
-
+    
     //visit next's mutual friends
     vector<int>::iterator vec1 = next->acquaintances.begin();
     for( ; vec1 != next->acquaintances.end(); vec1++ ) {
-      extNode* adjacent = friendsList.at(*vec1);
+      extNode* adjacent = list1.at(*vec1);
 
-      //soFar if it has reached the end
+      // so far end reached
       f2(adjacent, next, en);
-      //if( adjacent->item == en ) {
-      //  int temp1 = next->length + 1;
-      //  //reset fields
-      //  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
-      //  for( ; iter1 != friendsList.end(); iter1++ ) {
-      //    (*iter1).second->length = 0;
-      //    (*iter1).second->soFar = false;
-      //  }
-      //  return temp1;
-      //}
       f3(adjacent, next, stack1);
-      //if( !adjacent->soFar ) {
-      //  adjacent->length = next->length + 1;
-      //  stack1.push(adjacent);
-      //}
-    }				
+      }				
   }
 
-  //iter1
-  unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
+  unordered_map<int, extNode*>::iterator iter1 = list1.begin();
   f4(iter1);
-  //for( ; iter1 != friendsList.end(); iter1++ ) {
-  //  (*iter1).second->length = 0;
-  //  (*iter1).second->soFar = false;
-  //}
-
-  //return 0 if no found stack1ions
+  
+  //return 0 if not found
   return 0;
 }
 
@@ -154,8 +133,8 @@ int extensionGraph::f1(extNode*& next, int& en)
 {
   if( next->item == en ) {
     int temp1 = next->length + 1;
-    unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
-    for( ; iter1 != friendsList.end(); iter1++ ) {
+    unordered_map<int, extNode*>::iterator iter1 = list1.begin();
+    for( ; iter1 != list1.end(); iter1++ ) {
       (*iter1).second->length = 0;
       (*iter1).second->soFar = false;
     }
@@ -170,8 +149,8 @@ int extensionGraph::f2(extNode*& adjacent, extNode*& next, int& en )
   if( adjacent->item == en ) {
     int temp1 = next->length + 1;
     //reset fields
-    unordered_map<int, extNode*>::iterator iter1 = friendsList.begin();
-    for( ; iter1 != friendsList.end(); iter1++ ) {
+    unordered_map<int, extNode*>::iterator iter1 = list1.begin();
+    for( ; iter1 != list1.end(); iter1++ ) {
       (*iter1).second->length = 0;
       (*iter1).second->soFar = false;
     }
@@ -191,23 +170,18 @@ void extensionGraph::f3(extNode*& adjacent, extNode*& next, stack<extNode*>& sta
 
 void extensionGraph::f4(unordered_map<int, extNode*>::iterator& iter1)
 {
-  for( ; iter1 != friendsList.end(); iter1++ ) {
+  for( ; iter1 != list1.end(); iter1++ ) {
     (*iter1).second->length = 0;
     (*iter1).second->soFar = false;
   }
 }
 
-/** 
- * Param: None.
- * Return: None.
- *	Deallocated memory associated with the graph.
- */
-
+// Destructor
 extensionGraph::~extensionGraph() {
-  unordered_map<int, extNode*>::iterator st = friendsList.begin();
+  unordered_map<int, extNode*>::iterator st = list1.begin();
 
   //delete nodes in actor
-  for( ; st != friendsList.end(); st++ ) {
+  for( ; st != list1.end(); st++ ) {
     delete st->second;
   }
 

@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 6-5-2017
+ * CSE 100
+ * Project Assignment 4, Graphs
+ */
+
 #include <iostream>
 #include <sstream>
 #include <ostream>
@@ -9,16 +16,13 @@ using std::istream;
 using std::istringstream;
 using std::string;
 using std::vector;
-/*
- * Starts the timer. Saves the current time.
- */
+
+// time_start starts timer to record duration (nanoseconds).
 void Timer::time_start() {
   st = std::chrono::high_resolution_clock::now();
 }
 
-/*
- * Ends the timer. Compares end time with the start time and returns number of nanoseconds
- */
+// time_end ends timer. Returns duration from start time (nanoseconds).
 long long Timer::time_end() {
   std::chrono::time_point<std::chrono::high_resolution_clock> en;
   en = std::chrono::high_resolution_clock::now();

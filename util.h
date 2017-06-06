@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 6-2-2017
+ * CSE 100
+ * Project Assignment 4, Graphs
+ */
+
 #ifndef UTIL_H
 #define UTIL_H
 
@@ -7,21 +14,20 @@
 using std::istream;
 
 class Timer{
-  private:
-    std::chrono::time_point<std::chrono::high_resolution_clock> st;
 
   public:
 
-    /*
-     * Function called when sting the timer.
-     */
+    // start timer (nanoseconds).
+    // Takes no parameters. 
+    // Returns void.
     void time_start();
 
-    /*
-     * Function called when ending the timer. Returns duration in nanoseconds
-     * PRECONDITION: time_start() must be called before this function
-     */
+    // end timer (nanoseconds). 
+    // Takes no parameters.
+    // Return time duration.
     long long time_end();
+  private:
+    std::chrono::time_point<std::chrono::high_resolution_clock> st;
 
 
 };

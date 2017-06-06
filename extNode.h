@@ -1,3 +1,10 @@
+/*
+ * Vincent Salinas
+ * 5-31-2017
+ * CSE 100
+ * Project Assignment 4, Graphs
+ */
+
 #ifndef EXTNODE_H
 #define EXTNODE_H
 
@@ -13,20 +20,11 @@ using namespace std;
 class extNode {
 
   public:
-    /* Constructor */
-    extNode(int v);
-
-    /* int of key */
-    int item;
-
-    /* height */
-    int length;
-
-    /* check boolean */
-    bool soFar;
-
-    /* vector of friends */
+    extNode(int v); // Constructor
     vector<int> acquaintances;
+    int item; // key
+    int length; // height
+    bool soFar; // boolean indicating status so far
 
 };
 

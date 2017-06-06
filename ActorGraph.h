@@ -1,3 +1,10 @@
+/*
+ * Vincent Ssalinas
+ * 5-30-2017
+ * CSE 100
+ * Project Assignment 4, Graphs
+ */
+
 #ifndef ACTORGRAPH_H
 #define ACTORGRAPH_H
 
@@ -35,12 +42,11 @@ class ActorGraph {
     unordered_map<string, vector<string>> actor_links;
 
   public:
-    ActorGraph(void) {}
-
-    ~ActorGraph(void);
+    ActorGraph(void) {} // Constructor
+    ~ActorGraph(void); // Destructor
 
     int max;
-
+    // Helper functions
     void f1(string film, vector<ActorNode*>& vector_of_actors, unordered_map<string, vector<ActorNode*>>::iterator& insert_data);
 
     void f2(unordered_map<string, ActorNode*>::iterator& search, string& actor_name);
@@ -65,56 +71,59 @@ class ActorGraph {
 
     void f12(unordered_map<string, ActorNode*>::iterator& iter1);
 
-    /**
-     * rdered_map<string, ActorNode*>::iterator& clear);
-     *
-     *     void f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Union& u1);
-     *
-     *         void f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Union& u1);
-     *
-     *             void f12(unordered_map<string, ActorNode*>::iterator& iter1);
+    /*
      * Load the graph from a tab-delimited file of actor->movie relationships.
-     *
-     * in_filename - input filename
-     * use_weighted_edges - if true, compute edge weights as 1 + 
-     *		(2015 - movie_year), otherwise all edge weights will be 1
-     *
-     * return true if file was loaded sucessfully, false otherwise
+     * Param: 
+     *          in_filename = file to be read
+     *          use_weighted_edges = if w was extracted from command line arg
+     * Return:
+     *          boolean indicating successful (or unsuccessful) load
+     * Description:
+     *           return true if file was loaded sucessfully, false otherwise
      */
     bool loadFromFile(const char* in_filename, bool use_weighted_edges);
 
     /**
-     * Param: in_filename - input filename
-     * Return: boolean saying whether load was successful or not
-     * Load the actors into nodes and populates graph's actor hashmap
+     * Param: 
+     *          in_filename = file to be read
+     * Return: 
+     *          boolean indicating successful load or not
+     * Description: 
+     *          populate graph
      */
     bool loadFromFile(const char* in_filename);
 
     /**
-     * Param: string source - starting actor
-     *				string dest - ending actor 
-     * Return: stack<string> - the path names of the actors/movies from start to end
-     * Use BFS to search our graph for the shortest path from the first actor
-     * to the second
+     * Param: 
+     *          source = start actor
+     *		dest = destination actor 
+     * Return: 
+     *          stack<string> = stack of actor names from source actor to dest actor
+     * Description:
+     *          BFS search to find shortest path from source to dest
      */
     stack<string> pathFinding( string source, string dest );
 
     /**
-     * BFS implementation for actorconnections
-     * Param: vector<string> source - vector of actors we are starting at
-     *				vector<string> dest - vector of actors we are connecting to
-     * Return: vector<int> - the year the two actors were connected for each pair
-     *
+     * Param: 
+     *         source = vector of actors starting at 
+     *	        dest = vector of actors to be connected
+     * Return: 
+     *          vector<int> = vector containing years for actor pairs
+     * Description:
+     *          BFS search for actorconnections
      */
     vector<int> BFS( vector<string> source, vector<string> dest );
 
-
     /**
      * ufind implementation for actorconnections
-     * Param: vector<string> source - vector of actors we are starting at
-     *				vector<string> dest - vector of actors we are connecting to
-     * Return: vector<int> - the year the two actors were connected for each pair
-     *
+     * Param: 
+     *          source - vector of actors starting at
+     *		dest - vector of actors to be connected to
+     * Return: 
+     *          vector<int> = contains year of actor pairs
+     * Description:
+     *          union find implementation for actorconnections
      */
     vector<int> union_find( vector<string> source, vector<string> dest );
 

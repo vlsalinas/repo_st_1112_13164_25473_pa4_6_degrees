@@ -1,10 +1,3 @@
-/*
- * Vincent Salinas
- * 5-30-2017
- * CSE 100
- * Project Assignment 4
- */
-
 #ifndef ACTORGRAPH_H
 #define ACTORGRAPH_H
 
@@ -71,7 +64,15 @@ class ActorGraph {
     void f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Union& u1);
 
     void f12(unordered_map<string, ActorNode*>::iterator& iter1);
+
     /**
+     * rdered_map<string, ActorNode*>::iterator& clear);
+     *
+     *     void f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Union& u1);
+     *
+     *         void f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Union& u1);
+     *
+     *             void f12(unordered_map<string, ActorNode*>::iterator& iter1);
      * Load the graph from a tab-delimited file of actor->movie relationships.
      *
      * in_filename - input filename

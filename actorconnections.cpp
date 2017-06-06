@@ -5,6 +5,7 @@
  * Project Assignmenr 4, Graphs
  */
 
+#include "util.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -20,18 +21,26 @@ int main( int argc, char* argv[] ) {
 
   bool method_to_use = false;
   ActorGraph * actor_graph = new ActorGraph();
-  if( argc != 4 && argc != 5 ) {
+  // Start timer.
+  Timer duration;
+  duration.time_start();
+  // Commence validation checks.
+  int number_of_arguments = argc;
+  char* algorithm = argv[4];
+
+  // Validation check for crrect number of arguments.
+  if( number_of_arguments != 4 && number_of_arguments != 5 ) {
     cerr << "Invalid number of arguments. Aborting." << endl;
     return -1;
   }
 
   // Validation check for BFS or Union Find.
-  if( argc == 4
-      || strcmp( argv[4], "ufind" ) == 0 
-      || strcmp( argv[4], "bfs" ) == 0 ) {
+  if( number_of_arguments == 4
+      || strcmp( algorithm, "ufind" ) == 0 
+      || strcmp( algorithm, "bfs" ) == 0 ) {
 
-    if( argc == 4
-        || strcmp( argv[4], "ufind" ) == 0) {
+    if( number_of_arguments == 4
+        || strcmp( algorithm, "ufind" ) == 0) {
       method_to_use = false;
     }
     else {
@@ -42,15 +51,21 @@ int main( int argc, char* argv[] ) {
     cerr << "Invalid argument for method to use. Aborting." << endl;
     return -1;
   }
+
+
   bool load_file = actor_graph->loadFromFile( argv[1] );
   // Validation check for successful file read.
   if( !load_file ) return -1;
+
   ifstream fin(argv[2]);
   ofstream fout(argv[3]);
   bool have_header = false;
+
+  vector<string> vec2;
   vector<string> source;
   vector<string> dest;
   vector<int> yyy;
+
   // read file
   while(fin) {
 
@@ -107,6 +122,10 @@ int main( int argc, char* argv[] ) {
       << endl;
   }
 
+
+  // stop timer
+  long long timing = duration.time_end();
+  cout << "Duration (nanoseconds): " << timing << endl;
   // close file
   fin.close();
   // delete graph

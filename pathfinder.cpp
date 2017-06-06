@@ -23,21 +23,23 @@ int main( int argc, char* argv[] ) {
   Timer duration;
 
   //do checks on all input
+  int number_of_arguments = argc;
+  char c = *argv[2];
 
   //check if number of args is correct
-  if( argc != 5 ) {
+  if( number_of_arguments != 5 ) {
     cerr << "Invalid number of arguments. Aborting." << endl;
     return -1;
   }
 
   //check ww boolean
-  if( *argv[2] != 'u' && *argv[2] != 'w' ) {
-    cerr << "Invalid argument: " << *argv[2] << endl;
+  if( c != 'u' && c != 'w' ) {
+    cerr << "Invalid argument: " << c << endl;
     return -1;
   }
 
   //call on ww or unww?
-  if( *argv[2] == 'w' ) {
+  if( c == 'w' ) {
     ww = true;
   }
 

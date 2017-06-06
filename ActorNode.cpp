@@ -10,16 +10,16 @@
 using namespace std;
 
 /*
- * Param: The name of the actor whose node it is
+ * Param: The celebrity of the actor whose node it is
  * Return: None.
  * Initialize the node.
  */
 ActorNode::ActorNode(std::string n) {
-  name = n;
+  celebrity = n;
   edge_weight = INT_MAX;
-  previous = nullptr;
-  checked = false;
-  weight = 1;
+  ante = nullptr;
+  soFar = false;
+  cost = 1;
 }
 
 /*
@@ -36,7 +36,7 @@ bool ActorNode::operator<(const ActorNode& other) {
     return edge_weight > other.edge_weight;
   }
 
-  //otherwise compare the actor names
-  return name > other.name;
+  //otherwise compare the actor celebritys
+  return celebrity > other.celebrity;
 }
 

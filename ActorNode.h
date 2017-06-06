@@ -23,28 +23,28 @@ class ActorNode {
     ActorNode(std::string name);
 
     /* Actor name */
-    std::string name;
+    std::string celebrity;
 
     /* weight for ufind */
-    int weight;
+    int cost;
 
     /* counter of distance */
     int edge_weight;
 
     /* year tracker for ufind */
-    int year;
+    int track_year;
 
     /* checked boolean */
-    bool checked;
+    bool soFar;
 
     /* hashmap of movies for actor with weights */
-    unordered_map<std::string, int> movies;
+    unordered_map<std::string, int> films_list;
 
-    /* pointer to previous node in current search */
-    ActorNode * previous;
+    /* pointer to ante node in current search */
+    ActorNode * ante;
 
     /* current movie and year*/
-    std::string previousMovie;
+    std::string ante_film;
 
     /* overloaded comparison operator for node */
     bool operator<(const ActorNode& other); 

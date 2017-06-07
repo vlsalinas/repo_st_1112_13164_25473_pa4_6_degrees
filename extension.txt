@@ -14,7 +14,8 @@ determine the number of links from searching. Tests were conducted using data
 that is available online. A smaller data set was used. Number of friends is
 provided using depth first search. Output includes number of links (or 
 connections) indicating there are that many friends (or less). This indicates
- that there is a connection between the two people. Below is how to run the 
-program:
+that there is a connection between the two people. File to read in include 
+data.tsv, and file of pairs to compute include compute.tsv. Below is how to 
+run the program:
 
 ./extension file_to_read file_of_pairs output_file   

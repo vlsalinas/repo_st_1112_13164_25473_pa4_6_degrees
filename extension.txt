@@ -1,0 +1,20 @@
+// Vincent Salinas
+// 6-5-2017
+// CSE 100
+// Project Assignment 4
+// Extension wrete up
+
+Extension.cpp will determine if two people can be linked through their shared
+friends. The number of pairs represent friends, and is saved into the set of
+data. Extension.cpp uses a graph with hashmap (unordered_map) where the friend
+has a number as the key, along with a pointer to the friend. DFS search is then
+used to locate the destination (end friend), once all friends have been loaded
+. Traversing the graph will proceed to the next height of the graph to 
+determine the number of links from searching. Tests were conducted using data 
+that is available online. A smaller data set was used. Number of friends is
+provided using depth first search. Output includes number of links (or 
+connections) indicating there are that many friends (or less). This indicates
+ that there is a connection between the two people. Below is how to run the 
+program:
+
+./extension file_to_read file_of_pairs output_file   

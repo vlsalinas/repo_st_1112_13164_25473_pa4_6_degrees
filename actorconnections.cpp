@@ -5,7 +5,7 @@
  * Project Assignmenr 4, Graphs
  */
 
-#include "util.h"
+#include "Timer.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>

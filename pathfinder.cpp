@@ -11,7 +11,7 @@
 #include <stack>
 #include <string>
 #include <stdlib.h>
-#include "util.h"
+#include "Timer.h"
 #include "ActorGraph.h"
 #include "ActorNode.h"
 using namespace std;

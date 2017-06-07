@@ -25,7 +25,7 @@ pathfinder: ActorGraph.o ActorNode.o	Union.o util.o
 
 actorconnections: ActorGraph.o ActorNode.o Union.o util.o
 
-extension: extensionGraph.o extNode.o util.o
+extension: extension_graph.o extension_node.o util.o
 
 # include what ever source code *.h files ActorGraph relies on (these are merely the ones that were used in the solution)
 
@@ -39,10 +39,10 @@ ActorNode.o: ActorNode.h
 
 Union.o: ActorNode.o Union.h
 
-extensionGraph.o: extNode.o extensionGraph.h
+extension_graph.o: extension_node.o extension_graph.h
 
 util.o: util.h
-extNode.o: extNode.h
+extension_node.o: extension_node.h
 
 
 clean:

@@ -26,6 +26,18 @@
 
 using namespace std;
 
+// Destructor
+ActorGraph::~ActorGraph() {
+  unordered_map<string, ActorNode*>::iterator st1 = actor.begin();
+  unordered_map<string, vector<ActorNode*>>::iterator st2 = details.begin();
+
+  //delete nodes
+  for( ; st1 != actor.end(); st1++ ) {
+    delete st1->second;
+  }
+
+}
+
 /**
  * Parameters:
  *              in_filename = file to be read
@@ -510,15 +522,5 @@ void ActorGraph::f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& y
   }
 }
 
-// Destructor
-ActorGraph::~ActorGraph() {
-  unordered_map<string, ActorNode*>::iterator st1 = actor.begin();
-  unordered_map<string, vector<ActorNode*>>::iterator st2 = details.begin();
 
-  //delete nodes
-  for( ; st1 != actor.end(); st1++ ) {
-    delete st1->second;
-  }
-
-}
 

@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include "ActorGraph.h"
 #include "ActorNode.h"
-#include "Union.h"
+#include "Link.h"
 
 using namespace std;
 
@@ -413,7 +413,7 @@ void ActorGraph::f7(unordered_map<string, ActorNode*>::iterator& a_iter, int& yy
 
 
 /**
- * Union Find
+ * Link Find
  * Parameters: 
  *              source = vectors of actors to be searched
  *		dest = vector of actors to be connected
@@ -425,7 +425,7 @@ void ActorGraph::f7(unordered_map<string, ActorNode*>::iterator& a_iter, int& yy
 vector<int> ActorGraph::union_find( vector<string> source, vector<string> dest ) {
   vector<int> year_acted_together (source.size(), 9999);
   int yyy = max;
-  Union u1;
+  Link u1;
   while( yyy != 2016 ) {
     unordered_map<string, ActorNode*>::iterator a_iter = actor.begin();
     // creat unordered_map for each node in disjoint set
@@ -458,7 +458,7 @@ void ActorGraph::f12(unordered_map<string, ActorNode*>::iterator& iter1)
 
 }
 
-void ActorGraph::f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Union& u1 )
+void ActorGraph::f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Link& u1 )
 {
 
   for( int i = 0; i < source.size(); i++ ) {
@@ -474,7 +474,7 @@ void ActorGraph::f11(vector<int>& year_acted_together, vector<string>& source, v
   }
 }
 
-void ActorGraph::f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Union& u1)
+void ActorGraph::f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Link& u1)
 {
   unordered_map<string, int>::iterator n_iter = (*a_iter).second->films_list.begin();
   for( ; n_iter != (*a_iter).second->films_list.end(); n_iter++ ) {

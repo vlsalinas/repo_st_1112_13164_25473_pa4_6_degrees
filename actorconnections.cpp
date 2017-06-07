@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include "ActorGraph.h"
 #include "ActorNode.h"
-#include "Union.h"
+#include "Link.h"
 using namespace std;
 
 int main( int argc, char* argv[] ) {
@@ -34,7 +34,7 @@ int main( int argc, char* argv[] ) {
     return -1;
   }
 
-  // Validation check for BFS or Union Find.
+  // Validation check for BFS or Link Find.
   if( number_of_arguments == 4
       || strcmp( algorithm, "ufind" ) == 0 
       || strcmp( algorithm, "bfs" ) == 0 ) {

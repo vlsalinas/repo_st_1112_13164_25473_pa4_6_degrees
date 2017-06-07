@@ -12,7 +12,7 @@
 #include <sstream>
 #include "ActorNode.h"
 #include "ActorGraph.h"
-#include "Union.h"
+#include "Link.h"
 
 using namespace std;
 

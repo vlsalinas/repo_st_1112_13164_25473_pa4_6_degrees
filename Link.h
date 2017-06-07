@@ -17,7 +17,7 @@ using namespace std;
 class ActorNode;
 class ActorGraph;
 
-class Union {
+class Link {
 
   public:
     // Helper functions
@@ -27,7 +27,7 @@ class Union {
     void u4(stack<ActorNode*>& stack1, ActorNode*& begin, int& i);
 
     /* constructor */
-    Union() {};
+    Link() {};
     /**
      * Param: 
      *          src - the src actor node to union

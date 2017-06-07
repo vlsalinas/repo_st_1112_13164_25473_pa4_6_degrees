@@ -21,9 +21,9 @@ all: pathfinder actorconnections extension Timer.o
 
 # include what ever source code *.h files pathfinder relies on (these are merely the ones that were used in the solution)
 
-pathfinder: ActorGraph.o ActorNode.o	Union.o Timer.o
+pathfinder: ActorGraph.o ActorNode.o	Link.o Timer.o
 
-actorconnections: ActorGraph.o ActorNode.o Union.o Timer.o
+actorconnections: ActorGraph.o ActorNode.o Link.o Timer.o
 
 extension: extension_graph.o extension_node.o Timer.o
 
@@ -31,13 +31,13 @@ extension: extension_graph.o extension_node.o Timer.o
 
 # Note: you do not have to include a *.cpp file if it aleady has a paired *.h file that is already included with class/method headers
 
-ActorGraph.o: Union.o ActorNode.o ActorGraph.h
+ActorGraph.o: Link.o ActorNode.o ActorGraph.h
 
-# UnionFind.hpp ActorEdge.h Movie.h
+# LinkFind.hpp ActorEdge.h Movie.h
 
 ActorNode.o: ActorNode.h
 
-Union.o: ActorNode.o Union.h
+Link.o: ActorNode.o Link.h
 
 extension_graph.o: extension_node.o extension_graph.h
 

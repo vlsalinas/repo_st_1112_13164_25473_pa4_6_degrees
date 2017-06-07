@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include "ActorGraph.h"
 #include "ActorNode.h"
-#include "Union.h"
+#include "Link.h"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ using namespace std;
  * Description:
  *      union source and dest actors
  */
-void Union::union_them( ActorNode* src, ActorNode* dest, unordered_map<string, ActorNode*> & actor  ) {
+void Link::union_them( ActorNode* src, ActorNode* dest, unordered_map<string, ActorNode*> & actor  ) {
 
   src->soFar = true;
   dest->soFar = true;
@@ -52,13 +52,13 @@ void Union::union_them( ActorNode* src, ActorNode* dest, unordered_map<string, A
 
 }
 
-void Union::u1(ActorNode*& data1, ActorNode*& data2)
+void Link::u1(ActorNode*& data1, ActorNode*& data2)
 {
   data2->ante = data1;
   data1->cost += data2->cost;
 }
 
-void Union::u2(ActorNode*& data1, ActorNode*& data2)
+void Link::u2(ActorNode*& data1, ActorNode*& data2)
 {
   data1->ante = data2;
   data2->cost += data1->cost;
@@ -74,7 +74,7 @@ void Union::u2(ActorNode*& data1, ActorNode*& data2)
  * Description:
  *              Connect all found nodes along the path to root
  */
-ActorNode* Union::union_find( ActorNode* aNode, unordered_map<string, ActorNode*> & actor ) {
+ActorNode* Link::union_find( ActorNode* aNode, unordered_map<string, ActorNode*> & actor ) {
 
   stack<ActorNode*> stack1;
   ActorNode* begin = actor.at( aNode->celebrity);
@@ -95,7 +95,7 @@ ActorNode* Union::union_find( ActorNode* aNode, unordered_map<string, ActorNode*
 
 }
 
-void Union::u3(ActorNode*& begin, stack<ActorNode*>& stack1)
+void Link::u3(ActorNode*& begin, stack<ActorNode*>& stack1)
 {
   while( begin->ante != begin ) {
     stack1.push(begin);
@@ -103,7 +103,7 @@ void Union::u3(ActorNode*& begin, stack<ActorNode*>& stack1)
   }	
 }
 
-void Union::u4(stack<ActorNode*>& stack1, ActorNode*& begin, int& i)
+void Link::u4(stack<ActorNode*>& stack1, ActorNode*& begin, int& i)
 {
   while( !stack1.empty() ) {
     if( i != 0 ) 

@@ -15,7 +15,7 @@
 #include <stack>
 #include <unordered_map>
 #include <queue>
-#include "Union.h"
+#include "Link.h"
 
 using namespace std;
 
@@ -65,9 +65,9 @@ class ActorGraph {
 
     void f9(unordered_map<string, ActorNode*>::iterator& clear);
 
-    void f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Union& u1);
+    void f10(unordered_map<string, ActorNode*>::iterator& a_iter, int& yyy, Link& u1);
 
-    void f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Union& u1);
+    void f11(vector<int>& year_acted_together, vector<string>& source, vector<string>& dest, int& yyy, Link& u1);
 
     void f12(unordered_map<string, ActorNode*>::iterator& iter1);
 

@@ -17,15 +17,16 @@ class Timer{
 
   public:
 
+    // end timer (nanoseconds). 
+    // Takes no parameters.
+    // Return time duration.
+    long long time_end();
+
     // start timer (nanoseconds).
     // Takes no parameters. 
     // Returns void.
     void time_start();
 
-    // end timer (nanoseconds). 
-    // Takes no parameters.
-    // Return time duration.
-    long long time_end();
   private:
     std::chrono::time_point<std::chrono::high_resolution_clock> st;
 

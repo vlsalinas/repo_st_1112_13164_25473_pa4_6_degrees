@@ -17,11 +17,6 @@ using std::istringstream;
 using std::string;
 using std::vector;
 
-// time_start starts timer to record duration (nanoseconds).
-void Timer::time_start() {
-  st = std::chrono::high_resolution_clock::now();
-}
-
 // time_end ends timer. Returns duration from start time (nanoseconds).
 long long Timer::time_end() {
   std::chrono::time_point<std::chrono::high_resolution_clock> en;
@@ -29,4 +24,11 @@ long long Timer::time_end() {
   return (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(en-st).count();
 
 }
+
+// time_start starts timer to record duration (nanoseconds).
+void Timer::time_start() {
+  st = std::chrono::high_resolution_clock::now();
+}
+
+
 

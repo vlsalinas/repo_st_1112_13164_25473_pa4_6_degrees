@@ -15,17 +15,17 @@ else
     LDFLAGS += -g
 endif
 
-all: pathfinder actorconnections extension util.o
+all: pathfinder actorconnections extension Timer.o
 
 
 
 # include what ever source code *.h files pathfinder relies on (these are merely the ones that were used in the solution)
 
-pathfinder: ActorGraph.o ActorNode.o	Union.o util.o
+pathfinder: ActorGraph.o ActorNode.o	Union.o Timer.o
 
-actorconnections: ActorGraph.o ActorNode.o Union.o util.o
+actorconnections: ActorGraph.o ActorNode.o Union.o Timer.o
 
-extension: extension_graph.o extension_node.o util.o
+extension: extension_graph.o extension_node.o Timer.o
 
 # include what ever source code *.h files ActorGraph relies on (these are merely the ones that were used in the solution)
 
@@ -41,7 +41,7 @@ Union.o: ActorNode.o Union.h
 
 extension_graph.o: extension_node.o extension_graph.h
 
-util.o: util.h
+Timer.o: Timer.h
 extension_node.o: extension_node.h
 
 

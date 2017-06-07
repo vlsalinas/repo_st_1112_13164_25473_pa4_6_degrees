@@ -3,6 +3,10 @@
  * 6-5-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      pathfinder (in pathfinder.cpp ) to find the shortest path from one actor
+ *      to another actor through shared movies.
  */
 
 #include <iostream>
@@ -18,7 +22,7 @@ using namespace std;
 
 int main( int argc, char* argv[] ) {
 
-  bool ww = false;
+  bool contains_weight_argument = false;
   ActorGraph * actor_graph = new ActorGraph();
   Timer duration;
 
@@ -32,20 +36,20 @@ int main( int argc, char* argv[] ) {
     return -1;
   }
 
-  //check ww boolean
+  //check contains_weight_argument boolean
   if( c != 'u' && c != 'w' ) {
     cerr << "Invalid argument: " << c << endl;
     return -1;
   }
 
-  //call on ww or unww?
+  //call on contains_weight_argument or uncontains_weight_argument?
   if( c == 'w' ) {
-    ww = true;
+    contains_weight_argument = true;
   }
 
   duration.time_start();
 
-  bool load_file = actor_graph->loadFromFile( argv[1], ww );
+  bool load_file = actor_graph->loadFromFile( argv[1], contains_weight_argument );
 
   //check success of loading
   if( !load_file ) return -1;

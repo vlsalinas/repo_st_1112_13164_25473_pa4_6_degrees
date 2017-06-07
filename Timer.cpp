@@ -3,6 +3,11 @@
  * 6-5-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      Contains member and function implementations for Timer class.
+ *      Used primarily for recording the run-time durationg (nanoseconds)
+ *      of program run.
  */
 
 #include <iostream>

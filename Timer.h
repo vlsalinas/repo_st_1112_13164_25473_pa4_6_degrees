@@ -3,6 +3,12 @@
  * 6-2-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      Timer.h includes member and function declarations for
+ *      Timer class. Used to take time duration on run time of
+ *      programs.
+ *
  */
 
 #ifndef UTIL_H

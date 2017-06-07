@@ -3,6 +3,15 @@
  * 5-30-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *
+ * Contains member and function declarations for ActorGraph class.
+ * Includes functions:
+ *      loadFromFile() = loads file to be read
+ *      pathFinding() = finds path from start to end actors
+ *      BFS() = breadth first search algorithm
+ *      union_find() = union find algorithm 
  */
 
 #ifndef ACTORGRAPH_H

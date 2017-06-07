@@ -3,6 +3,10 @@
  * 5-30-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      Contains member and function decarations for ActorNode class.
+ *
  */
 
 #ifndef ACTORNODE_H

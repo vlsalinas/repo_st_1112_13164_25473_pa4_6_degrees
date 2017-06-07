@@ -3,6 +3,12 @@
  * 6-3-2017
  * CSE 100
  * Project Assignmenr 4, Graphs
+ *
+ * Description:
+ *      actorconnections will give the option to use two different approaches to solving the
+ *      actor-connections problem: (1) using the graph structure itself, with BFS over particular edges in the
+ *      graph (i.e. those up to a certain year) to determine whether two actors are connected and (2) without
+ *      using the graph, but instead using the Disjont Set ADT.
  */
 
 #include "Timer.h"

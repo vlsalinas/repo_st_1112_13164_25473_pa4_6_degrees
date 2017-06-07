@@ -3,6 +3,12 @@
  * 6-5-2017
  * CSE 100
  * Project Assingment 4, Graphs
+ *
+ * Description:
+ *      Contains memmber and function declarations of
+ *      extension_node class. Used in the process of
+ *      making an extension_graph graph for the extension.cpp
+ *      program.
  */
 
 #ifndef EXTNODE_H

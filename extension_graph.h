@@ -3,6 +3,11 @@
  * 5-31-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      extension_graph.h contains member and function declarations
+ *      for extension_graph class. Used in the extension.cpp program
+ *      to create and populate graphs.
  */
 
 #ifndef EXTENSIONGRAPH_H

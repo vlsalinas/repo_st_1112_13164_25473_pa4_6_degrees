@@ -3,6 +3,12 @@
  * 6-1-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      Contains member and function implementations of the ActorGraph
+ *      class. Used to create and populate late graph used in the 
+ *      pathfinder.cpp program. Also contains implementation for
+ *      BFS and union-find algorithms.
  */
 
 #include <fstream>

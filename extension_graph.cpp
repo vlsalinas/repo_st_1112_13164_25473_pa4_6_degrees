@@ -3,6 +3,11 @@
  * 6-5-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      Contains member and function implementations of extension_graph
+ *      class. Used primarily to create and populate graph used in the 
+ *      extension.cpp program.
  */
 
 #include <iostream>

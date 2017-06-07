@@ -2,6 +2,12 @@
 // 5-30-2017
 // CSE 100
 // Project Assignment 4, Graphs
+//
+// Description:
+//      Link.h contains member and many helper as well as primary
+//      functions. The Link class is primarily used for linking 
+//      two actors together.
+//
 #ifndef UNION_H
 #define UNION_H
 

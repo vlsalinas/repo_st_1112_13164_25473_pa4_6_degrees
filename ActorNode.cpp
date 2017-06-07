@@ -3,6 +3,12 @@
  * 6-2-2017
  * CSE 100
  * Program Assignment 4, Graphs
+ *
+ * Description:
+ *      Contains member and function implementations for
+ *      ActorNode class. Used in the process of creating an
+ *      ActorGraph in the pathfinder.cpp and actorconnections.cpp
+ *      program.
  */
 
 #include <iostream>

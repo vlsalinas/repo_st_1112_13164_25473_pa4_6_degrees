@@ -3,6 +3,11 @@
  * 6-6-2017
  * CSE 100
  * Project Assignment 4, Graphs
+ *
+ * Description:
+ *      extension.cpp explores the problem of social media networks and 
+ *      how it suggest mutual friends to two different people that aren't
+ *      directly "friended". 
  */
 
 
